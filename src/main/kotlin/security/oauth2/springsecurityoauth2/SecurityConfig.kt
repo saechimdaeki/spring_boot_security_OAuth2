@@ -9,13 +9,20 @@ import org.springframework.security.web.SecurityFilterChain
 class SecurityConfig {
 
     @Bean
-    fun configure(http: HttpSecurity): SecurityFilterChain {
+    fun securityFilterChain1(http: HttpSecurity): SecurityFilterChain {
         http.authorizeRequests().anyRequest().authenticated()
         http.formLogin()
-        http.apply(CustomSecurityConfigurer().apply {
-            setFlag(true)
-        })
+//        http.apply(CustomSecurityConfigurer().apply {
+//            setFlag(true)
+//        })
         return http.build()
     }
 
+
+    @Bean
+    fun securityFilterChain2(http: HttpSecurity): SecurityFilterChain {
+        http.authorizeRequests().anyRequest().authenticated()
+        http.httpBasic()
+        return http.build()
+    }
 }
