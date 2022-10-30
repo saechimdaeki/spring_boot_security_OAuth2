@@ -26,3 +26,16 @@
 
 - WebSecurity는 설정클래스에서 정의한 SecurityFilterChain 빈을 SecurityBuilder에 저장한다
 - WebSecurity가 build()를 실행하면 SecurityBuilder에서 SecurityFilterChain을 꺼내어 FilterChainProxy 생성자에게 전달한다
+
+---
+
+## AuthenticationEntryPoint 이해
+
+<img width="1351" alt="image" src="https://user-images.githubusercontent.com/40031858/198834459-58cbf614-ee75-490c-968c-ec78a3fc0e55.png">
+
+
+---
+
+## 시큐리티 인증 및 인가 흐름 요약
+
+<img width="1133" alt="image" src="https://user-images.githubusercontent.com/40031858/198861843-005a0a99-ffa8-4fd0-8900-92c9d7946ad9.png">
