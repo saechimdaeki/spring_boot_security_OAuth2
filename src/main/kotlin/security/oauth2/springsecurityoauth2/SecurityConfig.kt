@@ -3,15 +3,17 @@ package security.oauth2.springsecurityoauth2
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 
 @EnableWebSecurity
 class SecurityConfig {
 
     @Bean
-    fun securityFilterChain1(http: HttpSecurity): SecurityFilterChain {
+    fun defaultSecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http.authorizeRequests().anyRequest().authenticated()
-        http.formLogin()
+        http.httpBasic().authenticationEntryPoint(CustomAuthenticationEntryPoint())
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         return http.build()
     }
 

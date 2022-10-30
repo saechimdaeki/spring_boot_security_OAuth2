@@ -39,3 +39,31 @@
 ## 시큐리티 인증 및 인가 흐름 요약
 
 <img width="1133" alt="image" src="https://user-images.githubusercontent.com/40031858/198861843-005a0a99-ffa8-4fd0-8900-92c9d7946ad9.png">
+
+
+---
+
+## Http Basic 인증
+
+<img width="1246" alt="image" src="https://user-images.githubusercontent.com/40031858/198864639-1f2b4ff7-1122-4642-b673-5708a5a07975.png">
+
+### HttpBasicConfigurer
+
+- HTTP Basic 인증에 대한 초기화를 진행하며 속성들에 대한 기본값들을 설정한다
+- 기본 AuthenticationEntryPoint는 BasicAuthenticationEntryPoint 이다
+- 필터는 BasicAuthenticationFilter를 사용한다
+
+### BasicAuthenticationFilter
+
+- 이 필터는 기본 인증 서비슬르 제공하는데 사용된다
+- BasicAuthenticationConverter를 사용해서 요청 헤더에 기술된 인증정보의 유효성을 체크하며 Base64 인코딩된 username과 password를 추출한다
+- 인증이 성공하면 Authentication이 SecurityContext에 저장되고 인증이 실패하면 Basic인증을 통해 다시 인증하라는 메시지를
+
+    표시하는 BasicAuthenticationEntryPoint가 호출된다
+- 인증 이후 세션을 사용하는 경우와 사용하지 않는 경우에 따라 처리되는 흐름에 차이가 있다
+
+    세션을 사용하는 경우 매 요청마다 인증 과정을 거치지 않으나 세션을 사용하지 않는 경우 매 요청마다 인증과정을 거쳐야 한다
+
+<img width="588" alt="image" src="https://user-images.githubusercontent.com/40031858/198864749-4325fe7f-a9e7-4a9d-b8f2-33f403a007c9.png">
+
+<img width="1639" alt="image" src="https://user-images.githubusercontent.com/40031858/198864766-141c619e-0334-4e6f-9e0e-ab3267453f71.png">
