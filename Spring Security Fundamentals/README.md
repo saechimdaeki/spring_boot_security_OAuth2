@@ -67,3 +67,81 @@
 <img width="588" alt="image" src="https://user-images.githubusercontent.com/40031858/198864749-4325fe7f-a9e7-4a9d-b8f2-33f403a007c9.png">
 
 <img width="1639" alt="image" src="https://user-images.githubusercontent.com/40031858/198864766-141c619e-0334-4e6f-9e0e-ab3267453f71.png">
+
+
+---
+
+## Cors 이해
+
+### CORS(Cross-Origin Resource Sharing, 교차 출처 리소스 공유)
+
+- HTTP 헤더를 사용하여, 한 출처에서 실행 중인 웹 애플리케이션이 다른 출처의 선택한 자원에 접근할 수 있는 권한을 부여하도록 브라우저에 알려주는 체제
+- 웹 애플리케이션이 리소스가 자신의 출처와 다를 때 브라우저는 요청 헤더에 Origin 필드에 요청 출처를 함께 담아 교차 출처 HTTP 요청을  실행한다. 
+- 출처를 비교하는 로직은 서버에 구현된 스펙이 아닌 브라우저에 구현된 스펙 기준으로 처리되며 브라우저는 클라이언트의 요청 헤더와 서버의 응답헤더를 비교해서 최종 응답을 결정한다
+- 두개의 출처를 비교하는 방법은 URL의 구성요소 중 Protocol, Host, Port 이 세가지가 동일한지 확인하면 되고 나머지는 틀려도 상관없다
+
+<img width="1373" alt="image" src="https://user-images.githubusercontent.com/40031858/198867651-ba8d0e10-4aed-43dd-b82d-ceea616ab9dd.png">
+
+
+### CORWS 요청의 종류
+
+#### Simple Request
+
+- Simple Request는 예비 요청(Preflight)을 과정 없이 바로 서버에 본 요청을 한 후, 서버가 응답의 헤더에 Access-Control-Allow-Origin과 같은 값을 전송하면
+
+    브라우저가 서로 비교 후 CORS 정책 위반여부를 검사하는 방식이다
+
+
+- 제약 사항
+  - GET, POST, HEAD 중의 한가지 Method를 사용해야 한다
+  - 헤더는 Accept, Accept-Language, Content-Language, Content-Type, DPR, Downlink, Save-Data, Viewport-Width Width만 가능하고 Custom Header는 허용되지 않는다
+  - Content-type은 applciation/x-www-form-urlencoded, multipart/form-data, text/plain만 가능하다
+
+<img width="1384" alt="image" src="https://user-images.githubusercontent.com/40031858/198868253-e82ecd24-15c9-4648-b101-c8e492aa85cb.png">
+
+#### Preflight Request(예비 요청)
+
+- 브라우저는 요청을 한 번에 보내지 않고, 예비요청과 본요청으로 나누어 서버에 전달하는데 브라우저가 예비요청에을 보내는 것을 Preflight라고 하며
+    
+    이 예비 요청의 메소드에는 OPTIONS가 사용된다
+
+- 예비요청의 역할은 본 요청을 보내기 전에 브라우저 스스로 안전한 요청인지 확인하는 것으로 요청 사양이 Simple Request 에 해당하지 않을 경우 브라우저가 Preflight Request 을 실행한다
+
+<img width="1357" alt="image" src="https://user-images.githubusercontent.com/40031858/198868518-4b2fcd7e-63c5-46b7-9c6c-fa500e0b8a53.png">
+
+<img width="1371" alt="image" src="https://user-images.githubusercontent.com/40031858/198868537-2c5b2f7a-5798-44fc-a9e7-4dc1a775613f.png">
+
+<img width="1383" alt="image" src="https://user-images.githubusercontent.com/40031858/198868569-1e84a734-efb0-4596-b259-13eacf64fd90.png">
+
+<img width="1364" alt="image" src="https://user-images.githubusercontent.com/40031858/198868558-2225e408-12ac-4b76-90ae-ab684f89fa3d.png">
+
+#### API
+
+```java
+@Override
+protected void configure(final HttpSecurity http) throws Exception {
+    http
+        .authorizeRequests()
+        .anyRequest().authenticated()
+        .and();
+
+    http.cors().configurationSource(corsConfigurationSource()); // CorsConfigurer 설정을 초기화 한다
+}
+
+@Bean
+public CorsConfigurationSource corsConfigurationSource() {
+
+    CorsConfiguration configuration = new Configuration();
+
+    configuration.addAllowedOrigin("*");
+    configuration.addAllowedMethod("*");
+    configuration.addAllowedHeader("*");
+    configuration.setAllowCredentials(true);
+    configuration.setMaxAge(3660L);
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    soruce.registerCorsConfiguration("/**", configuration);
+
+    return source;
+}
+
+```
