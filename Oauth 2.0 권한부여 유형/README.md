@@ -71,5 +71,37 @@
 - 이것은 CSRF 공격 을 방지하는 데 사용된다
 
 
+---
+
+## Authorization Code Grant Type - 권한 부여 코드 승인 방식
+
+### 개요
+
+#### 1. 흐름 및 특징
+1) 사용자가 애플리케이션을 승인하면 인가서버는 Redirect URI로 임시 코드 담아서 애플리케이션으로 다시 리다이렉션한다
+2) 애플리케이션은 해당 임시 코드를 인가 서버로 전달하고 액세스 토큰으로 교환한다
+3) 애플리케이션이 액세스 토큰을 요청할 때 해당 요청을 클라이언트 암호로 인증할 수 있으므로 공격자가 인증 코드를 가로채서 스스로 사용할 위험이 줄어듬
+4) 액세스 토큰이 사용자 또는 브라우저에 표시되지 않고 애플리케이션에 다시 전달하는 가장 안전한 방법이므로 토큰이 다른 사람에게 누출될 위험이 줄어듬
+
+#### 2. 권한 부여 코드 요청시 매개변수
+- response_type = code (필수)
+- client_id (필수)
+- redirect_uri (선택사항)
+- scope (선택사항)
+- state (선택사항)
+
+#### 3. 액세스토큰 교환 요청 시 매개변수
+- grant_type = authorization_code (필수)
+- code (필수)
+- redirect_uri (필수 : 리다이렉션 URL이 초기 승인 요청에 포함된 경우)
+- client_id (필수)
+- client_secret (필수)
+
+<img width="1066" alt="image" src="https://user-images.githubusercontent.com/40031858/199395638-2c445fbb-35da-4e7f-83bb-bf1a3ef7d5ef.png">
 
 
+<img width="1125" alt="image" src="https://user-images.githubusercontent.com/40031858/199395850-cb58d1e2-8224-43b2-8c73-a75ef8b3b420.png">
+
+<img width="1078" alt="image" src="https://user-images.githubusercontent.com/40031858/199395907-58981caf-1444-49e8-8542-6fd7501d86c4.png">
+
+<img width="1138" alt="image" src="https://user-images.githubusercontent.com/40031858/199396013-9f0f9889-cb14-454c-ada5-33a8890d7b1b.png">
