@@ -127,3 +127,28 @@
 - redirect_uri (필수)
 - scope (선택사항)
 - state (선택사항)
+
+---
+
+## Resource Owner Password Credentials Grant Type - 패스워드 자격증명 승인 방식
+
+### 개요
+
+#### 1. 흐름 및 특징
+
+- 애플리케이션이 사용자 이름과 암호를 액세스 토큰으로 교환할 때 사용된다
+- 타사 애플리케이션이 이 권한을 사용하도록 허용해서는 안되고 고도의 신뢰할 자사 애플리케이션에서만 사용해야 한다
+
+#### 2. 권한 부여 승인 요청 시 매개 변수
+
+- grant_type = password (필수)
+- username (필수)
+- password (필수)
+- client_id (필수)
+- client_secret (필수)
+- scope (선택사항)
+
+<img width="1128" alt="image" src="https://user-images.githubusercontent.com/40031858/199689177-18d3deb3-11e8-488a-aec1-b9e135e22f16.png">
+
+
+<img width="1091" alt="image" src="https://user-images.githubusercontent.com/40031858/199689242-718d7191-3987-4f14-af5f-1670850df456.png">
