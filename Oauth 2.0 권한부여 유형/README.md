@@ -152,3 +152,29 @@
 
 
 <img width="1091" alt="image" src="https://user-images.githubusercontent.com/40031858/199689242-718d7191-3987-4f14-af5f-1670850df456.png">
+
+
+----
+
+## Client Credentials Grant Type - 클라이언트 자격증명 승인 방식
+
+### 개요
+
+#### 1. 흐름 및 특징
+
+- 애플리케이션이 리소스 소유자인 동시에 클라이언트의 역할을 한다
+- 리소스 소유자에게 권한 위임 받아 리소스에 접근하는 것이 아니라 자기 자신이 애플리케이션을 사용할 목적으로 사용하는 것
+- 서버 대 서버간의 통신에서 사용할 수 있으며 IOT와 같은 장비 애플리케이션과의 통신을 위한 인증으로도 사용할 수 있다
+- Client Id와 Client Secret을 통해 액세스 토큰을 바로 발급 받을 수 있기 때문에 Refresh Token을 제공하지 않는다
+- Client 정보를 기반으로 하기 때문에 사용자 정보를 제공하지 않는다
+
+#### 2. 권한 부여 승인 요청 시 매개변수
+
+- grant_type = client_credentials (필수)
+- client_id (필수)
+- client_secret (필수)
+- scope (선택사항)
+
+<img width="1113" alt="image" src="https://user-images.githubusercontent.com/40031858/199717020-c2aaf583-87d8-423d-b557-f01b6ab4cd4c.png">
+
+<img width="1106" alt="image" src="https://user-images.githubusercontent.com/40031858/199717070-85759321-0602-4a14-b8ed-9c65d5c45287.png">
