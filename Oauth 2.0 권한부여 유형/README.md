@@ -178,3 +178,29 @@
 <img width="1113" alt="image" src="https://user-images.githubusercontent.com/40031858/199717020-c2aaf583-87d8-423d-b557-f01b6ab4cd4c.png">
 
 <img width="1106" alt="image" src="https://user-images.githubusercontent.com/40031858/199717070-85759321-0602-4a14-b8ed-9c65d5c45287.png">
+
+
+---
+
+## Refresh Token Grant Type - 리프레시 토큰 승인 방식
+
+### 개요
+
+#### 1. 흐름 및 특징
+
+- 액세스 토큰이 발급될 때 함께 제공되는 토큰으로서 액세스 토큰이 만료되더라도 함께 발급받았던 리프레시 토큰이 유효하다면, 인증 과정을 처음부터
+
+    반복하지 않아도 액세스 토큰을 재발급 받을 수 있다
+- 한 번 사용된 리프레시 토큰은 폐기되거나 재사용 할 수 있다
+
+#### 2. 권한 부여 승인 요청 시 매개변수
+
+- grant_type = refresh_token (필수)
+- refresh_token
+- client_id (필수)
+- client_secret (필수)
+
+<img width="1071" alt="image" src="https://user-images.githubusercontent.com/40031858/199869922-936ace88-061a-4fcd-8061-161a508d9d75.png">
+
+
+<img width="958" alt="image" src="https://user-images.githubusercontent.com/40031858/199870000-6ad7296e-bfae-461a-98bc-e7a7132e0664.png">
