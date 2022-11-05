@@ -9,3 +9,5 @@
 ### [OAuth 2.0 용어 이해](./OAuth%202.0%20용어%20이해/README.md)
 
 ### [Oauth 2.0 권한 부여 유형](./Oauth%202.0%20권한부여%20유형/README.md)
+
+### [OAuth 2.0 Open ID Connect](./OAuth%202.0%20Open%20ID%20Connect/README.md)
