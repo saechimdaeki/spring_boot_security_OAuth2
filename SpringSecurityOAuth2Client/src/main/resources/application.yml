@@ -5,20 +5,20 @@ spring:
   security:
     oauth2:
       client:
-        registration: # ????? ??
+        registration:
           keycloak:
-            clientId: oauth2-client-app  # ??? ???? ??? ????? ???
-            clientSecret: IUcUxC5no8zlGo7aWGLzdBguo92BWCV3  # ??? ???? ??? ????? ????
-            clientName: oauth2-client-app  # ????? ??
-            redirectUri: http://localhost:8081/login/oauth2/code/keycloak # ?????? ?? ?? ?? ? ?????? ????? ?? ??
-            authorizationGrantType: authorization_code # OAuth 2.0 ?? ?? ??
-            clientAuthenticationMethod: client_secret_basic # ????? ???? ?? ??
-            scope: openid,profile,email # ???? ?? ?? ??
-        provider: # ??? ??
+            clientId: oauth2-client-app
+            clientSecret: IUcUxC5no8zlGo7aWGLzdBguo92BWCV3
+            clientName: oauth2-client-app
+            redirectUri: http://localhost:8081/login/oauth2/code/keycloak
+            authorizationGrantType: authorization_code
+            clientAuthenticationMethod: client_secret_basic
+            scope: openid,profile,email
+        provider:
           keycloak:
-            authorizationUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/auth # OAuth 2.0 ?? ?? ?? ?? ???
-            tokenUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/token # OAuth 2.0 ?? ?? ???
-            issuerUri: http://localhost:8080/realms/oauth2 # ??? ??? ??
-            userInfoUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/userinfo # OAuth 2.0 UserInfo ?? ???
-            jwkSetUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/certs # OAuth 2.0 JwkSetUri ?? ???
-            userNameAttribute: preferred_username # OAuth 2.0 ????? ???? ????
+            authorizationUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/auth
+            tokenUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/token
+            issuerUri: http://localhost:8080/realms/oauth2
+            userInfoUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/userinfo
+            jwkSetUri: http://localhost:8080/realms/oauth2/protocol/openid-connect/certs
+            userNameAttribute: preferred_username
