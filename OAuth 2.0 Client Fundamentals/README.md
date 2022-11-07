@@ -121,3 +121,14 @@ public class Abcd {
 }
 
 ```
+
+<img width="1428" alt="image" src="https://user-images.githubusercontent.com/40031858/200255595-ecae1bb1-09c0-4917-a54d-2ac0a1c19d4b.png">
+
+
+---
+
+## 자동설정에 의한 초기화 과정 이해
+
+<img width="1306" alt="image" src="https://user-images.githubusercontent.com/40031858/200255684-ecb465c8-66e1-4968-a89d-6baa4d5e3e76.png">
+
+<img width="1420" alt="image" src="https://user-images.githubusercontent.com/40031858/200255727-f8e92536-b04a-4eea-8031-7f581c185886.png">
