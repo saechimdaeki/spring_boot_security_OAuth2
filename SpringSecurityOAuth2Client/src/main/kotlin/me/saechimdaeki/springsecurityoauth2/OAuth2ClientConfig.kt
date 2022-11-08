@@ -2,6 +2,7 @@ package me.saechimdaeki.springsecurityoauth2
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.oauth2.client.registration.ClientRegistration
@@ -27,8 +28,16 @@ class OAuth2ClientConfig {
 
     @Bean
     fun securityFilterChain(http: HttpSecurity) : SecurityFilterChain {
-        http.authorizeRequests().anyRequest().authenticated()
-        http.oauth2Login()
+        http.authorizeRequests { authRequest ->
+            authRequest
+                .antMatchers("/loginPage")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+        }
+        http.authorizeRequests(Customizer.withDefaults())
+        http.oauth2Login { oauth2 -> oauth2.loginPage("/loginPage") }
+
         return http.build()
     }
 }

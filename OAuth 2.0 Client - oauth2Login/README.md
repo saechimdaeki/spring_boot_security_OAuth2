@@ -28,3 +28,10 @@ public class CustomOAuth2ClientConfig {
 <img width="1333" alt="image" src="https://user-images.githubusercontent.com/40031858/200453015-6886e64e-6152-474c-90ba-e73c80331816.png">
 
 <img width="1376" alt="image" src="https://user-images.githubusercontent.com/40031858/200453075-c21ffe79-f84c-4dfb-afc5-fe0666067ea7.png">
+
+---
+
+## OAuth2 로그인 구현 - OAuth 2.0 Login Page 생성
+
+<img width="1403" alt="image" src="https://user-images.githubusercontent.com/40031858/200476475-40b9cf31-116c-4548-9bf9-f666a2ff8154.png">
+
