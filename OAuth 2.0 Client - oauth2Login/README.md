@@ -68,6 +68,62 @@ public class CustomOAuth2ClientConfig {
 
 <img width="1444" alt="image" src="https://user-images.githubusercontent.com/40031858/200561560-3bcfb5ac-7f8c-4464-a1cc-d895e87267db.png">
 
+---
+
+## OAuth2 로그인 구현 - Access Token 교환하기
+
+### 개요
+
+- 주요 클래스
+  - OAuth2LoginAuthenticationFilter
+    - 인가서버로부터 리다이렉트 되면서 전달된 code를 인가서버의 Access Token으로 교환하고 Access Token이 저장된
+
+      OAuth2LoginAuthenticationToken을 AuthenticationManager에 위임하여 UserInfo 정보를 요청해서 최종 사용자로 로그인한다
+
+    - OAuth2AuthorizedClientRepository를 사용하여 OAuth2AuthorizedClient를 저장한다
+    - 인증에 성공하면 OAuth2AuthenticationTOken이 생성되고 SecurityContext에 저장되어 인증 처리를 완료한다
+
+
+    <img width="642" alt="image" src="https://user-images.githubusercontent.com/40031858/200713159-a3655deb-4ab7-4ad5-9570-cd27345274a8.png">
+
+    - 요청 매핑 Url
+      - RequestMatcher : /login/oauth2/code/* 
+
+  - OAuth2LoginAuthenticationProvider
+    - 인가서버로부터 리다이렉트 된 이후 프로세스를 처리하며  Access Token 으로 교환하고 이 토큰을 사용하여 UserInfo 처리를 담당한다
+    - Scope 에 openid 가 포함되어 있으면 OidcAuthorizationCodeAuthenticationProvider 를 호출하고 아니면 OAuth2AuthorizationCodeAuthenticationProvider 를 호출하도록 제어한다 
+
+       <img width="538" alt="image" src="https://user-images.githubusercontent.com/40031858/200713324-e605406a-40cc-412a-8270-cf8659188c88.png">
+
+
+  - OAuth2AuthorizationCodeAuthenticationProvider
+    - 권한 코드 부여 흐름을 AuthenticationProvider
+    - 인가서버에 Authorization Code 처리하는와 AccessToken 의 교환을 담당하는 클래스
+
+      <img width="526" alt="image" src="https://user-images.githubusercontent.com/40031858/200713458-a58465ee-0d84-4007-9807-714d96067998.png">
+
+  
+  - OidcAuthorizationCodeAuthenticationProvider
+    - OpenID Connect Core 1.0 권한 코드 부여 흐름을 처리하는 AuthenticationProvider 이며 요청 Scope 에 openid 가 존재할 경우 실행된다
+
+      <img width="503" alt="image" src="https://user-images.githubusercontent.com/40031858/200714192-b4ddf682-7ea1-4066-84ee-3fe77471e02a.png">
+
+  - DefaultAuthorizationCodeTokenResponseClient
+    - 인가서버의 token 엔드 포인트로 통신을 담당하며 AccessToken 을 받은 후 OAuth2AccessTokenResponse 에 저장하고 반환한다
+
+
+      <img width="504" alt="image" src="https://user-images.githubusercontent.com/40031858/200714354-cd77023c-a001-46d8-a114-6edc128138d7.png">
+
+
+<img width="1124" alt="image" src="https://user-images.githubusercontent.com/40031858/200714392-49ed1517-40cb-4a85-ae85-848e07964461.png">
+
+
+
+
+<img width="1153" alt="image" src="https://user-images.githubusercontent.com/40031858/200714524-3a4975bf-fed7-42cb-b305-2bb7592811e4.png">
+
+<img width="1157" alt="image" src="https://user-images.githubusercontent.com/40031858/200714596-309cae53-3afe-434e-864b-7466259127a6.png">
+
 
 
 
