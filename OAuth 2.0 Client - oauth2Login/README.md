@@ -224,6 +224,46 @@ public class CustomOAuth2ClientConfig {
 <img width="1424" alt="image" src="https://user-images.githubusercontent.com/40031858/201554543-76b4cef8-2d8a-4635-b4ad-9f8835013b1b.png">
 
 
+---
+
+## OpenID Connect 로그아웃
+
+
+- 개념
+  - 클라이언트는 로그아웃 엔드포인트를 사용하여 웹 브라우저에 대한 세션과 쿠키를 지운다.
+  - 클라이언트 로그아웃 성공 후 OidcClientInitiatedLogoutSuccessHandler 를 호출하여 OpenID Provider 세션 로그아웃 요청한다
+  - OpenID Provider 로그아웃이 성공하면 지정된 위치로 리다이렉트 한다
+  - 인가서버 메타데이터 사양에 있는 로그아웃 엔드 포인트는 end_session_endpoint 로 정의되어 있다
+    - endSessionEndpoint = http://localhost:8080/realms/oauth2/protocol/openid-connect/logout
+
+- API 설정
+
+```java
+http
+  .logout()
+  .logoutSuccessHandler(oidcLogoutSuccessHandler())
+  .invalidateHttpSession(true)
+  .clearAuthentication(true)
+  .deleteCookies("JSESSIONID");
+
+private OidcClientInitialtedLogoutSuccessHandler oidcLogoutSuccessHandler(){
+  OidcClientInitialtedLogoutSuccessHandler successHandler = 
+    new OidcClientInitialtedLogoutSuccessHandler(clientRegistrationRepository);
+
+  successHandler.setPostLogoutRedirectUri("http://localhost:8081/login");
+  return successHandler;
+}
+```
+
+<img width="523" alt="image" src="https://user-images.githubusercontent.com/40031858/201556830-49634d96-8d4e-4c2b-8268-55be6ea2e692.png">
+
+
+
+
+
+
+
+
 
 
 
