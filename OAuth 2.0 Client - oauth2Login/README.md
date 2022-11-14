@@ -257,6 +257,32 @@ private OidcClientInitialtedLogoutSuccessHandler oidcLogoutSuccessHandler(){
 
 <img width="523" alt="image" src="https://user-images.githubusercontent.com/40031858/201556830-49634d96-8d4e-4c2b-8268-55be6ea2e692.png">
 
+---
+
+## Spring MVC 에서 인증 객체 참조하기
+
+- Authentication
+  - public void dashboard(Authentication authentication) {} 
+    - oauth2Login() 로 인증을 받게 되면 Authentication 은 OAuth2AuthenticationToken 타입의 객체로 바인딩 된다
+    - principal 에는 OAuth2User 타입 혹은 OidcUser 타입의 구현체가 저장 된다.
+    - DefaultOAuth2User 는 /userInfo 엔드포인트 요청으로 받은 User 클레임 정보로 생성된 객체이다
+    - DefaultOidcUser 는 OpenID Connect 인증을 통해 ID Token 및 클레임 정보가 포함된 객체이다
+
+- @AuthenticationPrincipal
+  - public void dashboard(@AuthenticationPrincipal OAuth2User principal or OidcUser principal) {}
+  - AuthenticationPrincipalArgumentResolver 클래스에서 요청을 가로채어 바인딩 처리를 한다. 
+    - Authentication 를 SecurityContex 로부터 꺼내어 와서 Principal 속성에 OAuth2User 혹은 OidcUser 타입의 객체를 저장한다
+
+
+<img width="412" alt="image" src="https://user-images.githubusercontent.com/40031858/201647922-805e66da-7ba6-488c-8d07-bd3190fe5a1d.png">
+
+
+
+
+
+
+
+
 
 
 
