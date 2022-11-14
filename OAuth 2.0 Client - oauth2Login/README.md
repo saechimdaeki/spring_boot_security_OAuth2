@@ -179,6 +179,58 @@ public class CustomOAuth2ClientConfig {
 
 
 
+---
+
+## OAuth 2.0 Provider UserInfo 엔드포인트 요청하기
+
+### 개요
+
+- 주요 클래스 
+  - DefaultOAuth2UserService
+    - public OAuth2User loadUser(OAuth2UserRequest userRequest)
+  - OAuth2UserRequestEntityConverter
+    - OAuth2UserRequest 를 RequestEntity 로 컨버터 한다
+
+    <img width="499" alt="image" src="https://user-images.githubusercontent.com/40031858/201553927-fe187552-d6bf-4ecd-bac9-4aabb69e2c1b.png">
+
+  - RestOperations
+    - RequestEntity 로 인가서버에 요청하고 ResponseEntity 로 응답받는다
+    - OAuth2User 타입의 객체를 반환한다
+
+- 요청 Uri
+  - POST /userinfo
+
+<img width="1439" alt="image" src="https://user-images.githubusercontent.com/40031858/201553984-f58cb670-7346-484b-b695-21aa7b21dcfa.png">
+
+## OpenID Connect Provider UserInfo 엔드포인트 요청하기
+
+### 개요
+
+- 주요 클래스
+  - OidcUserService
+    - public OidcUser loadUser(OidcUserRequest userRequest)
+
+      <img width="359" alt="image" src="https://user-images.githubusercontent.com/40031858/201554464-3ba88fb9-77f3-48a9-b9c4-5fdadb24d9f6.png">
+
+    - 내부에 DefaultOAuth2UserService 를 가지고 있으며 OIDC 사양에 부합할 경우 OidcUserRequest 를 넘겨 주어 인가서버와 통신한다
+    - OidcUser 타입의 객체를 반환한다 
+
+- 요청 Uri
+  - POST /userinfo
+
+
+<img width="1425" alt="image" src="https://user-images.githubusercontent.com/40031858/201554526-aa3abbe8-1048-43a3-b6df-25e4da05a079.png">
+
+<img width="1424" alt="image" src="https://user-images.githubusercontent.com/40031858/201554543-76b4cef8-2d8a-4635-b4ad-9f8835013b1b.png">
+
+
+
+
+
+
+
+
+
 
 
 
