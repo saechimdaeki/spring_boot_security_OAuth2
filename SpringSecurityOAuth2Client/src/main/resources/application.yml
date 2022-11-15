@@ -10,7 +10,7 @@ spring:
             clientId: oauth2-client-app
             clientSecret: IUcUxC5no8zlGo7aWGLzdBguo92BWCV3
             clientName: oauth2-client-app
-            redirectUri: http://localhost:8081/login/oauth2/code/keycloak
+            redirectUri: http://localhost:8081/login/v1/oauth2/code/keycloak
             authorizationGrantType: authorization_code
             clientAuthenticationMethod: client_secret_basic
             scope: openid,profile,email

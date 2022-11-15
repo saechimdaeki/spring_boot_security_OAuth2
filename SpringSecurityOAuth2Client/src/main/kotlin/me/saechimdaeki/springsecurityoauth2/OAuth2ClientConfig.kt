@@ -20,6 +20,7 @@ class OAuth2ClientConfig(
         }
         http.oauth2Login { oauth2 ->
             oauth2.loginPage("/login")
+                .loginProcessingUrl("/login/v2/oauth2/code/*")
                 .authorizationEndpoint { authorizationEndpointConfig ->
                     authorizationEndpointConfig.baseUri("/oauth2/v1/authorization")
                 }
