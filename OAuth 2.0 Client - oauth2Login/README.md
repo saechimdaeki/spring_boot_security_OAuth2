@@ -277,6 +277,44 @@ private OidcClientInitialtedLogoutSuccessHandler oidcLogoutSuccessHandler(){
 <img width="412" alt="image" src="https://user-images.githubusercontent.com/40031858/201647922-805e66da-7ba6-488c-8d07-bd3190fe5a1d.png">
 
 
+---
+
+## Authorization BaseUri & Redirection BaseUri
+
+```java
+http
+  .oauth2Login(oauth2 -> oauth
+    .loginPage("/login")
+    .loginProcessingUrl("/login/v1/oauth2/code/*")
+    .authorizationEndpoint(authorizationEndpointConfig -> 
+        authorizationEndpointConfig.baseUri("/oauth2/v1/authorization"))
+    .redirectionEndpoint(redirectionEndpointConfig -> 
+        redirectionEndpointConfig.baseUri("/login/v1/oauth2/code/*"))
+  );
+```
+
+- authorizationEndpoint().baseUrl("/oauth2/v1/authorization")은 권한 부여 요청 BaseUri를 커스텀한다
+  - 1단계 권한 부여 요청을 처리하는 OAuth2AuthorizationRequestRedirectFilter 에서 요청에 대한 매칭여부를 판단한다
+  - 설정에서 변경한 값이 클라이언트의 링크 정보와 일치하도록 맞추어야 한다
+
+<img width="1254" alt="image" src="https://user-images.githubusercontent.com/40031858/201911160-7f138fc1-dee8-4510-a449-d54eb2672095.png">
+
+
+
+- redirectionEndpoint.baseUri("/login/v1/oauth2/code/*") 은 인가 응답의 baseUri 를 커스텀 한다
+  - Token 요청을 처리하는 OAuth2LoginAuthenticationFilter 에서 요청에 대한 매칭여부를 판단한다
+    - applicztion.yml 설정 파일에서 registration 속성의 redirectUri 설정에도 변경된 값을 적용해야 한다
+    - 인가서버의 redirectUri 설정에도 변경된 값을 적용해야 한다
+  - loginProcessingUrl("/login/v1/oauth2/code/*") 를 설정해도 결과는 동일하지만 redirectionEndpoint.baseUri 가 더 우선이다
+
+<img width="1340" alt="image" src="https://user-images.githubusercontent.com/40031858/201911350-0eebfc88-5f39-4710-b902-ea8908502c2a.png">
+
+
+
+
+
+
+
 
 
 

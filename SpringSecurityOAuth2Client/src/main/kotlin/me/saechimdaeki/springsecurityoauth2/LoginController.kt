@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class LoginController {
 
-    @GetMapping("/loginPage")
-    fun loginPage() = "loginPage"
+    @GetMapping("/login")
+    fun loginPage() = "login"
 }
