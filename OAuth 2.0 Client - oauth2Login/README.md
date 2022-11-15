@@ -310,6 +310,36 @@ http
 <img width="1340" alt="image" src="https://user-images.githubusercontent.com/40031858/201911350-0eebfc88-5f39-4710-b902-ea8908502c2a.png">
 
 
+---
+
+## OAuth2AuthorizationRequestResolver
+
+### OAuth2AuthorizationRequestResolver
+
+- Authorization Code Grant 방식에서 클라이언트가 인가서버로 권한부여 요청할 때 실행되는 클래스
+- OAuth2AuthorizationRequestResolver 는 OAuth 2.0 인가 프레임워크에 정의된 표준 파라미터 외에 다른 파라미터를 추가하는 식으로 인가 요청을 할 때 사용한다
+- DefaultOAuth2AuthorizationRequestResolver 가 디폴트 구현체로 제공 되며 Consumer<OAuth2AuthorizationRequest.Builder> 속성에 커스텀 할 내용을 구현한다
+
+```java
+@Bean
+SecurityFilterChain oauth2SecurityFilterChain(HttpSecurity http) throws Exception {
+  http.authorizeRequests((requests) -> requests.antMatchers("/home").permitAll()
+        .anyRequest().authenticated();
+  http.oauth2Login(authLogin ->
+      authLogin.authorizationEndpoint(authEndpoint -> 
+        authEndpoint.authorizationRequestResolver(customOAuth2AuthenticationRequestResolver()))));
+  return http.build();
+}
+
+private OAuth2AuthorizationRequestResolver customOAuth2AuthenticationRequestResolver() {
+  return new CustomOAuth2AuthorizationRequestResolver(clientRegistrationRepository,"/oauth2/authorization");
+}
+
+```
+
+<img width="900" alt="image" src="https://user-images.githubusercontent.com/40031858/201924604-318b88f3-b7e6-4894-8b6e-0fce631ff941.png">
+
+<img width="1390" alt="image" src="https://user-images.githubusercontent.com/40031858/201924655-3725373b-d2fc-4033-b718-bddc286707ca.png">
 
 
 

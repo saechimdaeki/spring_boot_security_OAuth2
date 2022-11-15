@@ -1,0 +1,33 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <script>
+    function authorizationCode(){
+      window.location = new URL('http://localhost:8081/oauth2/authorization/keycloak1');
+    }
+
+    function authorizationCodeWithPKCE(){
+      window.location = new URL('http://localhost:8081/oauth2/authorization/keycloakWithPKCE');
+    }
+
+    function implicit(){
+      window.location = new URL('http://localhost:8081/oauth2/authorization/keycloak2');
+    }
+
+  </script>
+</head>
+<body>
+<div>Welcome</div>
+<div sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></div>
+<form sec:authorize="isAnonymous()" action="#">
+  <p><input type="button" onclick="authorizationCode()" value="AuthorizationCode Grant" />
+  <p><input type="button" onclick="authorizationCodeWithPKCE()" value="AuthorizationCode Grant with PKCE" />
+  <p><input type="button" onclick="implicit()" value="Implicit Grant" />
+</form>
+</body>
+</html>
