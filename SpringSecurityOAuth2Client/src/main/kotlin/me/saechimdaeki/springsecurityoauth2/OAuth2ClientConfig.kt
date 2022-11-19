@@ -6,21 +6,23 @@ import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository
-import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver
 import org.springframework.security.web.SecurityFilterChain
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
 class OAuth2ClientConfig(
-    private val clientRegistrationRepository: ClientRegistrationRepository,
+//    private val clientRegistrationRepository: ClientRegistrationRepository,
 ) {
 
     @Bean
     fun oauth2SecurityFilterChain(http: HttpSecurity): SecurityFilterChain {
-        http.authorizeRequests { authRequest -> authRequest.anyRequest().authenticated() }
+        http.authorizeRequests { authRequest ->
+            authRequest.antMatchers("/home").permitAll()
+                .anyRequest().authenticated()
+        }
             .oauth2Login(Customizer.withDefaults())
             .oauth2Client(Customizer.withDefaults())
-
+        http.logout().logoutSuccessUrl("/home")
         return http.build()
     }
 
