@@ -53,7 +53,56 @@
   - OAuth2AuthorizationRequest 객체가 존재하는지 확인
 
 
+---
 
+## DefaultOAuth2AuthorizedClientManager 소개 및 특징
+
+### 개념
+
+- OAuth2AuthorizedClient를 전반적으로 관리하는 인터페이스
+- OAuth2AuthorizedClientProvider 로 OAuth 2.0 클라이언트에 권한 부여
+  - Client Credentials Flow
+  - Resource Owner Password Flow
+  - Refresh Token Flow
+- OAuth2AuthorizedClientService 나 OAuth2AuthorizedClientRepository 에 OAuth2AuthorizedClient 저장을 위임한 후 OAuth2AuthorizedClient 최종 반환
+- 사용자 정의 OAuth2AuthorizationSuccessHandler 및 OAuth2AuthorizationFailureHandler 를 구성하여 성공/실패 처리를 변경할 수 있다
+- invalid_grant 오류로 인해 권한 부여 시도가 실패하면 이전에 저장된 OAuth2AuthorizedClient가 OAuth2AuthorizedClientRepository 에서 제거된다
+
+<img width="957" alt="image" src="https://user-images.githubusercontent.com/40031858/202878709-16cfb6fc-71c2-4d67-91c7-e04c8d612393.png">
+
+
+<img width="1146" alt="image" src="https://user-images.githubusercontent.com/40031858/202878720-ac89a5c5-9d42-4eff-8a6d-741ee7d0da30.png">
+
+<img width="1120" alt="image" src="https://user-images.githubusercontent.com/40031858/202878723-5d050c74-9d17-4693-af96-d506984fe38f.png">
+
+
+```java
+@Bean
+public OAuth2AuthorizedClientManager authorizedClientManager(ClientRegistrationRepository clientRegistrationRepository,
+OAuth2AuhtorizedClientRepository authorizedClientRepository) {
+
+  OAuth2AuthorizedClientProvider authorizedClientProvider = 
+    OAuth2AuthorizedClientProviderBuilder.builder()
+        .authorizationCode()
+        .refreshToken()
+        .clientCredentials()
+        .password()
+        .build();
+
+  DefaultOAuth2AuthorizedClientManager authroizedClientManager = 
+    new DefaultOAuth2AuthorizedClientManager(
+      clientRegistrationRepository, authorizedClientRepository);
+  authorizedClientManager.setAuthorizedClientProvider(authorizedClientProvider);
+
+  return authorizedClientManager;
+}
+
+```
+
+
+
+
+ 
     
 
 

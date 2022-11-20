@@ -1,4 +1,4 @@
-package me.saechimdaeki.springsecurityoauth2
+package me.saechimdaeki.springsecurityoauth2.oauth2Client.controller
 
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.authority.SimpleGrantedAuthority
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import javax.servlet.http.HttpServletRequest
 
 @Controller
-class ClientController(
+class Oauth2ClientController(
     private val oAuth2AuthorizedClientRepository: OAuth2AuthorizedClientRepository,
     private val oAuth2AuthorizedClientService: OAuth2AuthorizedClientService
 ) {

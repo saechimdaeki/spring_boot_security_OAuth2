@@ -18,38 +18,38 @@ class IndexController(
 ) {
     val logger:Logger = LoggerFactory.getLogger(IndexController::class.java)
 
-    @GetMapping("/")
-    fun index() :String {
-
-        val clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak")
-        val clientId = clientRegistration.clientId
-        logger.info("clientId = {}",clientId)
-
-        val redirectUri = clientRegistration.redirectUri
-        logger.info("redirectUri = {}",redirectUri)
-        return "index"
-    }
-
-    @GetMapping("/user")
-    fun user(authentication: Authentication): OAuth2User {
-        val authentication1 = SecurityContextHolder.getContext().authentication as OAuth2AuthenticationToken
-        val authentication2 = authentication as OAuth2AuthenticationToken
-
-        val oAuth2User = authentication2.principal as OAuth2User
-        return oAuth2User
-    }
-
-    @GetMapping("/oauth2User")
-    fun oAuth2User(@AuthenticationPrincipal oAuth2User: OAuth2User) : OAuth2User {
-        logger.info("oAUth2User = {}" , oAuth2User)
-        return oAuth2User
-    }
-
-    @GetMapping("/oidcUser")
-    fun oidcUser(@AuthenticationPrincipal oidcUser: OidcUser) : OidcUser {
-        logger.info("oidcUser = {}" , oidcUser)
-        return oidcUser
-    }
+//    @GetMapping("/")
+//    fun index() :String {
+//
+//        val clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak")
+//        val clientId = clientRegistration.clientId
+//        logger.info("clientId = {}",clientId)
+//
+//        val redirectUri = clientRegistration.redirectUri
+//        logger.info("redirectUri = {}",redirectUri)
+//        return "index"
+//    }
+//
+//    @GetMapping("/user")
+//    fun user(authentication: Authentication): OAuth2User {
+//        val authentication1 = SecurityContextHolder.getContext().authentication as OAuth2AuthenticationToken
+//        val authentication2 = authentication as OAuth2AuthenticationToken
+//
+//        val oAuth2User = authentication2.principal as OAuth2User
+//        return oAuth2User
+//    }
+//
+//    @GetMapping("/oauth2User")
+//    fun oAuth2User(@AuthenticationPrincipal oAuth2User: OAuth2User) : OAuth2User {
+//        logger.info("oAUth2User = {}" , oAuth2User)
+//        return oAuth2User
+//    }
+//
+//    @GetMapping("/oidcUser")
+//    fun oidcUser(@AuthenticationPrincipal oidcUser: OidcUser) : OidcUser {
+//        logger.info("oidcUser = {}" , oidcUser)
+//        return oidcUser
+//    }
 
 
 
