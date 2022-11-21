@@ -110,7 +110,10 @@ OAuth2AuhtorizedClientRepository authorizedClientRepository) {
 <img width="1143" alt="image" src="https://user-images.githubusercontent.com/40031858/202968745-ffc44532-b33b-4d74-ac22-d58e0832a52d.png">
 
  
-    
+## Client Credentials Flow
+
+<img width="1137" alt="image" src="https://user-images.githubusercontent.com/40031858/202980409-bed0a48b-10ce-4344-bd0e-eff0326c2c3c.png">
+
 
 
 

@@ -34,25 +34,27 @@ class Oauth2LoginController(
             .build()
 
         val authorizedClient = oAuth2AuthorizedClientManager.authorize(authorizeRequest)
+        model.addAttribute("oAuth2AuthenticationToken", authorizedClient?.accessToken?.tokenValue)
 
-        authorizedClient?.let {
-            val oAuth2UserService = DefaultOAuth2UserService()
-            val clientRegistration = authorizedClient.clientRegistration
-            val accessToken = authorizedClient.accessToken
-            val oAuth2UserRequest = OAuth2UserRequest(clientRegistration, accessToken)
-            val oAuth2User = oAuth2UserService.loadUser(oAuth2UserRequest)
-
-            val authorityMapper = SimpleAuthorityMapper()
-            authorityMapper.setPrefix("SYSTEM_")
-            val grantedAuthorities = authorityMapper.mapAuthorities(oAuth2User.authorities)
-
-            val oAuth2AuthenticationToken =
-                OAuth2AuthenticationToken(oAuth2User, grantedAuthorities, clientRegistration.registrationId)
-
-            SecurityContextHolder.getContext().authentication = oAuth2AuthenticationToken
-
-            model.addAttribute("oAuth2AuthenticationToken", oAuth2AuthenticationToken)
-        }
+        // Client Credentials 방법이라면 필요없는 로직
+//    직   authorizedClient?.let {
+//            val oAuth2UserService = DefaultOAuth2UserService()
+//            val clientRegistration = authorizedClient.clientRegistration
+//            val accessToken = authorizedClient.accessToken
+//            val oAuth2UserRequest = OAuth2UserRequest(clientRegistration, accessToken)
+//            val oAuth2User = oAuth2UserService.loadUser(oAuth2UserRequest)
+//
+//            val authorityMapper = SimpleAuthorityMapper()
+//            authorityMapper.setPrefix("SYSTEM_")
+//            val grantedAuthorities = authorityMapper.mapAuthorities(oAuth2User.authorities)
+//
+//            val oAuth2AuthenticationToken =
+//                OAuth2AuthenticationToken(oAuth2User, grantedAuthorities, clientRegistration.registrationId)
+//
+//            SecurityContextHolder.getContext().authentication = oAuth2AuthenticationToken
+//
+//            model.addAttribute("oAuth2AuthenticationToken", oAuth2AuthenticationToken)
+//        }
 
 
         return "redirect:/"
