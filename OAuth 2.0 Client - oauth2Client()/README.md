@@ -100,7 +100,14 @@ OAuth2AuhtorizedClientRepository authorizedClientRepository) {
 ```
 
 
+---
 
+## Resource Owner Password Flow
+
+<img width="1139" alt="image" src="https://user-images.githubusercontent.com/40031858/202968715-4f83d31e-382d-4f5c-905b-c1efe92d1cfc.png">
+
+
+<img width="1143" alt="image" src="https://user-images.githubusercontent.com/40031858/202968745-ffc44532-b33b-4d74-ac22-d58e0832a52d.png">
 
  
     

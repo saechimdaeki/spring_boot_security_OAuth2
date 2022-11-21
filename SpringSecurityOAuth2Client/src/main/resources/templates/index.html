@@ -11,25 +11,13 @@
       window.location = new URL('http://localhost:8081/oauth2/authorization/keycloak');
     }
 
-    function password(){
-      window.location = new URL('http://localhost:8081/oauth2Login?username=user&password=1234');
-    }
-
-    function clientCredentials(){
-      window.location = new URL('http://localhost:8081/oauth2Login');
-    }
-
-
   </script>
 </head>
 <body>
 <div>Welcome</div>
-<div sec:authorize="isAuthenticated()"><a href="/logout">Logout</a></div>
 <form sec:authorize="isAnonymous()" action="#">
   <p><input type="button" onclick="authorizationCode()" value="AuthorizationCode Grant" />
-  <p><input type="button" onclick="password()" value="Resource Owner Password Grant" />
-  <p><input type="button" onclick="clientCredentials()" value="Client Credentials Grant" />
+  <div sec:authorize="isAnonymous()"><a th:href="@{/oauth2Login(username='user',password='1234')}">Password Flow Login</a></div>
 </form>
 </body>
-
 </html>
