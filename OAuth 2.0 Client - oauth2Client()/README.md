@@ -114,13 +114,9 @@ OAuth2AuhtorizedClientRepository authorizedClientRepository) {
 
 <img width="1137" alt="image" src="https://user-images.githubusercontent.com/40031858/202980409-bed0a48b-10ce-4344-bd0e-eff0326c2c3c.png">
 
+## Refresh Token Flow
 
-
-
-
-
-
-
+<img width="1141" alt="image" src="https://user-images.githubusercontent.com/40031858/202996319-440f534b-1330-43bc-9347-a90d7f6409a6.png">
 
 
 

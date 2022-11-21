@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.client.web.DefaultOAuth2AuthorizedCli
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository
 import org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames
 import org.springframework.util.StringUtils
+import java.time.Duration
 import java.util.function.Function
 import javax.servlet.http.HttpServletRequest
 
@@ -26,9 +27,9 @@ class AppConfig {
     ): OAuth2AuthorizedClientManager {
         val oAuth2AuthorizedClientProvider = OAuth2AuthorizedClientProviderBuilder.builder()
             .authorizationCode()
-            .password()
+            .password{passwordGrantBuilder -> passwordGrantBuilder.clockSkew(Duration.ofSeconds(3600))}
             .clientCredentials()
-            .refreshToken()
+            .refreshToken{refreshTokenGrantBuilder -> refreshTokenGrantBuilder.clockSkew(Duration.ofSeconds(3600))}
             .build()
 
         val oAuth2AuthorizedClientManager =
