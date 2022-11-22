@@ -119,6 +119,10 @@ OAuth2AuhtorizedClientRepository authorizedClientRepository) {
 <img width="1141" alt="image" src="https://user-images.githubusercontent.com/40031858/202996319-440f534b-1330-43bc-9347-a90d7f6409a6.png">
 
 
+## 커스텀 OAuth2 로그인 필터 구현
+
+<img width="1094" alt="image" src="https://user-images.githubusercontent.com/40031858/203269456-9d0628d2-2b07-4fb3-b298-79d4c1509f02.png">
+
 
 
 
