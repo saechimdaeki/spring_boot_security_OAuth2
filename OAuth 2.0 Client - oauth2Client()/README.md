@@ -123,7 +123,8 @@ OAuth2AuhtorizedClientRepository authorizedClientRepository) {
 
 <img width="1094" alt="image" src="https://user-images.githubusercontent.com/40031858/203269456-9d0628d2-2b07-4fb3-b298-79d4c1509f02.png">
 
+## @RegisteredOAuth2AuthorizedClient
 
+<img width="1077" alt="image" src="https://user-images.githubusercontent.com/40031858/203272163-93db546a-94bc-4c2e-ac65-6ddedf414f76.png">
 
-
-
+<img width="1149" alt="image" src="https://user-images.githubusercontent.com/40031858/203272261-d9033a79-2075-4884-9a5e-b1056cdacacb.png">
