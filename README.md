@@ -17,3 +17,5 @@
 ### [OAuth 2.0 Client - oauth2Login](./OAuth%202.0%20Client%20-%20oauth2Login/README.md)
 
 ### [OAuth 2.0 Client - oauth2Client](./OAuth%202.0%20Client%20-%20oauth2Client()/README.md)
+
+### [OAuth 2.0 Social Login](./OAuth%202.0%20Social%20Login/README.md)
