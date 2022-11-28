@@ -13,8 +13,8 @@ class IndexController {
 
     @GetMapping("/")
     fun index(model: Model, authentication: Authentication, @AuthenticationPrincipal oAuth2User: OAuth2User) : String {
-        val authenticationToken = authentication as OAuth2AuthenticationToken
-        authenticationToken.let {
+        val authenticationToken = authentication as OAuth2AuthenticationToken?
+        authenticationToken?.let {
             val attributes = oAuth2User.attributes
             var userName = attributes["name"]
 

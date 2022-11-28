@@ -1,5 +1,7 @@
 package me.saechimdaeki.springsecurityoauth2
 
+import me.saechimdaeki.springsecurityoauth2.service.CustomOAuth2UserService
+import me.saechimdaeki.springsecurityoauth2.service.CustomOidcUserService
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -9,10 +11,8 @@ import org.springframework.security.web.SecurityFilterChain
 
 @EnableWebSecurity
 class Oauth2ClientConfig(
-
-    // TODO 구현
-//    private val customOAuth2UserService: CustomOauth2UserService,
-//    private val customOidcUserService: CustomOidcuserService,
+    private val customOAuth2UserService: CustomOAuth2UserService,
+    private val customOidcUserService: CustomOidcUserService,
 ) {
 
     @Bean
@@ -35,8 +35,8 @@ class Oauth2ClientConfig(
         }
         http.oauth2Login { oauth2 -> oauth2.userInfoEndpoint{
             userInfoEndpointConfig -> userInfoEndpointConfig
-//            .userService { customOAuth2UserService }
-//            .oidcUserService { customOidcUserService }
+            .userService(customOAuth2UserService)
+            .oidcUserService(customOidcUserService)
         } }
         http.logout().logoutSuccessUrl("/")
         return http.build()

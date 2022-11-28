@@ -14,14 +14,18 @@ class CustomAuthorityMapper : GrantedAuthoritiesMapper {
     }
 
     private fun mapAuthority(name: String): GrantedAuthority {
-        var name = name
-        if (name.lastIndexOf(".") > 0) {
-            val index = name.lastIndexOf(".")
-            name = "SCOPE_" + name.substring(index + 1)
+        var nameRole = name
+        when {
+            nameRole.lastIndexOf(".") > 0 -> {
+                val index = nameRole.lastIndexOf(".")
+                nameRole = "SCOPE_" + nameRole.substring(index + 1)
+            }
         }
-        if (prefix.isNotEmpty() && !name.startsWith(prefix)) {
-            name = prefix + name
+        when {
+            prefix.isNotEmpty() && !nameRole.startsWith(prefix) -> {
+                nameRole = prefix + nameRole
+            }
         }
-        return SimpleGrantedAuthority(name)
+        return SimpleGrantedAuthority(nameRole)
     }
 }
