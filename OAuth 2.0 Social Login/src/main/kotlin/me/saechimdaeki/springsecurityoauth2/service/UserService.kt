@@ -1,7 +1,7 @@
 package me.saechimdaeki.springsecurityoauth2.service
 
 import me.saechimdaeki.springsecurityoauth2.model.ProviderUser
-import me.saechimdaeki.springsecurityoauth2.model.User
+import me.saechimdaeki.springsecurityoauth2.model.users.User
 import me.saechimdaeki.springsecurityoauth2.repository.UserRepository
 import org.springframework.stereotype.Service
 

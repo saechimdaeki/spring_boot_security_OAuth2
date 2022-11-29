@@ -1,4 +1,4 @@
-package me.saechimdaeki.springsecurityoauth2.model
+package me.saechimdaeki.springsecurityoauth2.model.users
 
 import org.springframework.security.core.GrantedAuthority
 

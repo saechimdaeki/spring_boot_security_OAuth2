@@ -1,6 +1,6 @@
 package me.saechimdaeki.springsecurityoauth2.repository
 
-import me.saechimdaeki.springsecurityoauth2.model.User
+import me.saechimdaeki.springsecurityoauth2.model.users.User
 import org.springframework.stereotype.Repository
 
 @Repository
