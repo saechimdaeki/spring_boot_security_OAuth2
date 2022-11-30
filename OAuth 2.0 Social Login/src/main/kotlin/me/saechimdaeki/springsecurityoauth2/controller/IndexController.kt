@@ -1,5 +1,6 @@
 package me.saechimdaeki.springsecurityoauth2.controller
 
+import me.saechimdaeki.springsecurityoauth2.model.PrincipalUser
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController
 class IndexController {
 
     @GetMapping("/")
-    fun index(model: Model, authentication: Authentication, @AuthenticationPrincipal oAuth2User: OAuth2User) : String {
+    fun index(model: Model, authentication: Authentication, @AuthenticationPrincipal principalUser: PrincipalUser) : String {
         val authenticationToken = authentication as OAuth2AuthenticationToken?
         authenticationToken?.let {
-            val attributes = oAuth2User.attributes
+            val attributes = principalUser.attributes
             var userName = attributes["name"]
 
             if(it.authorizedClientRegistrationId.equals("naver")) {

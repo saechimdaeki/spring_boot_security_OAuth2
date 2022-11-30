@@ -14,4 +14,12 @@ class GoogleUser(attributes: Attributes, oAuth2User: OAuth2User, clientRegistrat
     override fun getUsername(): String {
         return getAttributes()["sub"] as String
     }
+
+    override fun getPicture(): String {
+        return ""
+    }
+
+    override fun getOAuth2User(): OAuth2User? {
+        TODO("Not yet implemented")
+    }
 }

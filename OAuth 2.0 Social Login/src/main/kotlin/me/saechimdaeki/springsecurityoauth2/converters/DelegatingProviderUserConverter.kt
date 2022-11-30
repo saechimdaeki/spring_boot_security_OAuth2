@@ -12,7 +12,8 @@ class DelegatingProviderUserConverter : ProviderUserConverter<ProviderUserReques
     init {
         val providerUserConverters = listOf(
             OAuth2GoogleProviderUserConverter(),
-            OAuth2NaverProviderUserConverter()
+            OAuth2NaverProviderUserConverter(),
+            UserDetailsProviderUserConverter()
         )
         this.converters = providerUserConverters
     }

@@ -37,4 +37,8 @@ abstract class OAuth2ProviderUser(
     override fun getAttributes(): Map<String, Any> {
        return attributes
     }
+
+    override fun getOAuth2User(): OAuth2User? {
+        return oAuth2User
+    }
 }
