@@ -34,3 +34,12 @@ public class OAuth2ResourceServerConfig {
 <img width="1076" alt="image" src="https://user-images.githubusercontent.com/40031858/205541253-308f7b04-e52b-4949-8c12-a366c5f82131.png">
 
 <img width="1114" alt="image" src="https://user-images.githubusercontent.com/40031858/205541282-b4f830a6-b2b2-4435-b6f7-e99aafb093dd.png">
+
+## JwtDecoder 소개 및 세부 흐름
+
+<img width="937" alt="image" src="https://user-images.githubusercontent.com/40031858/205553765-d768ea9f-283d-4784-9f18-0e4be5329761.png">
+
+<img width="1042" alt="image" src="https://user-images.githubusercontent.com/40031858/205553788-d344ef9b-0ac0-43c8-8d6c-e373f7f42a13.png">
+
+<img width="1095" alt="image" src="https://user-images.githubusercontent.com/40031858/205553833-90ee5c24-c60e-4829-a2b1-d815d49dfbb0.png">
+
