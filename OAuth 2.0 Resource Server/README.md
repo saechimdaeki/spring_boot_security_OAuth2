@@ -43,3 +43,9 @@ public class OAuth2ResourceServerConfig {
 
 <img width="1095" alt="image" src="https://user-images.githubusercontent.com/40031858/205553833-90ee5c24-c60e-4829-a2b1-d815d49dfbb0.png">
 
+
+## JwtDecoder 생성 방법
+
+<img width="1064" alt="image" src="https://user-images.githubusercontent.com/40031858/205578054-b73a8002-49a6-4430-88f1-cef67fd38010.png">
+
+
