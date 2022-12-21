@@ -152,6 +152,76 @@ public class OAuth2ResourceServerConfig {
 
 <img width="861" alt="image" src="https://user-images.githubusercontent.com/40031858/208588948-ec67eb6d-80e7-4551-a330-94a8f8c48992.png">
 
+## JWT
+
+- JOSE (JSON Object Signing and Encryption) 
+  - JSON 데이터의 컨텐츠를 암호화 또는 서명의 형태로 나타내기 위해 IETF에서 표준화 한 소프트웨어 기술 세트
+
+  - 기술에는 다음 사양이 포함된다
+
+    1. JWT (JSON Web Token, RFC7519)
+       - 클레임 기반 보안 값을 나타내는 방법으로 두 당사자 간에 안전하게 전달되는 클레임을 표현하기 위한 개방형 표준
+       - JWT는 인증, 권한 부여 및 정보 교환에 사용된다
+       - JWS 또는 JWE 방식으로 구현된다
+
+    2. JWS (JSON WEB SIGNITURE, RFC 7515) 
+       - JSON을 사용하여 디지털 서명 또는 MAC으로 보안된 콘텐츠를 표현하는 방법
+
+    3. JWE (JSON WEB ENCRYPTION, RFC 7516) 
+       - JSON을 사용하여 의도한 수신자만 읽을 수 있도록 암호화된 데이터(토큰)를 나타내는 형식
+
+    4. JWK (JSON WEB KEY, RFC 7517) 
+       - HMAC 이나 타원 곡선 또는 RSA 알고리즘을 사용하여 공개 키 세트를 JSON 객체로 나타내는 JSON 구조
+
+    5. JWA (JSON WEB ALGORITHM, RFC 7518)
+       - JWS, JWK 및 JWE에 필요한 알고리즘 목록으로 JWS 헤더 및 JWS 페이로드의 내용을 서명하는 데 사용된다
+
+- JWS 구조 
+  - JOSE Header
+    - 일반적으로 JWT인 토큰 유형과 HMAC SHA256 또는 RSA 와 같은 서명 알고리즘의 두 부분으로 구성된다
+    - Base64Url 로 인코딩되어 JSON 웹 토큰의 첫 번째 부분을 형성한다
+  - Payload (JWT Claim Set)
+    - 토큰에 포함할 내용인 클레임을 포함하는 페이로드로서 표준 필드인 7개의 등록 클레임 이름(Registered Claim Names) 및 사용자 지정 클레임 등으로 구성한다
+    - Base64Url 로 인코딩되어 JSON 웹 토큰의 두 번째 부분을 형성한다
+  - Signiture
+    - 서명은 Base64url 인코딩을 이용하여 헤더와 페이로드를 인코딩하고 이 둘을 점(.) 구분자로 함께 연결시킴으로써 계산되어 토큰을 안전하게 확인한다. 
+    - 
+    <img width="981" alt="image" src="https://user-images.githubusercontent.com/40031858/208827935-612b95d2-da0f-4c11-b870-60babf63b4f6.png">
+- Claims
+  - 개념
+    - 클레임(claim) 은 주장하고자 하는 정보를 나타내는 것으로 이 정보를 모두 가지고 있는 바디 부분을 Claim Set 이라고 부른다. 
+    - Claim Set은 키 부분인 Claim Name과 값 부분인 Claim Value의 여러 쌍으로 이루어져 있다. 
+    - JWT 에는 여러개의 클레임들을 넣을 수 있다
+
+    <img width="991" alt="image" src="https://user-images.githubusercontent.com/40031858/208828430-db441d7a-e813-4369-b468-6e89c0b6e80f.png">
+
+
+<img width="1126" alt="image" src="https://user-images.githubusercontent.com/40031858/208828783-ef3384ee-4cd8-4b5d-be2d-6b72163f4047.png">
+
+
+## JWK 이해
+
+- JWK 개념 
+  - 암호화 키를 저장하는 방식으로 인가서버에서 발행하는 JWT 토큰의 암호화 및 서명에 필요한 암호화 키의 다양한 정보를 담은 JSON 객체 표준이다
+  - JwkSetUri 정보를 설정하면 인가서버로부터 JWK 형태의 정보를 다운로드할 수 있고 JWT 를 검증할 수 있다.
+
+<img width="1120" alt="image" src="https://user-images.githubusercontent.com/40031858/208828913-4482e94b-79d8-45c5-bad2-932104693cb6.png">
+
+- JWK 확장 
+  - 자바 표준 보안 클래스를 사용하여 대칭키, 비대칭키 방식의 JWT 의 암호화 및 전자서명, 이후 검증을 위한 키 생성, 변환 등을 지원한다
+  - 구현체로서 RSAKey, OctetSequenceKey, ECKey, OctetKeyPair 가 있다
+
+<img width="1111" alt="image" src="https://user-images.githubusercontent.com/40031858/208828985-3e659e44-0812-4e43-a3c4-9a99cf4e7cdb.png">
+
+<img width="962" alt="image" src="https://user-images.githubusercontent.com/40031858/208829035-426f0ffd-74aa-49e6-8f71-028411696995.png">
+
+
+
+
+
+
+
+
 
 
 
