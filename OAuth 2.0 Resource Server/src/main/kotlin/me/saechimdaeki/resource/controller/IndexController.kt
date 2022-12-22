@@ -1,4 +1,4 @@
-package me.saechimdaeki.resource
+package me.saechimdaeki.resource.controller
 
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.GetMapping

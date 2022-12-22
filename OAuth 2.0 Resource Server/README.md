@@ -216,6 +216,12 @@ public class OAuth2ResourceServerConfig {
 <img width="962" alt="image" src="https://user-images.githubusercontent.com/40031858/208829035-426f0ffd-74aa-49e6-8f71-028411696995.png">
 
 
+---
+
+# OAuth2 MAC & RSA 검증 
+
+<img width="990" alt="image" src="https://user-images.githubusercontent.com/40031858/209038534-a7d10414-9649-42e3-85a6-ece9f0c2294e.png">
+
 
 
 
