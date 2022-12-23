@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class IndexController {
 
-    @GetMapping("/")
+    @GetMapping("/api/user")
     fun index(authentication: Authentication) :Authentication {
         return authentication
     }
+
 }
