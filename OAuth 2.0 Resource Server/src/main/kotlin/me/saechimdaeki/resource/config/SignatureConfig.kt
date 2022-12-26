@@ -40,7 +40,7 @@ class SignatureConfig {
     fun rsaKey() : RSAKey {
         val rsaKey = RSAKeyGenerator(2048)
             .keyID("rsaKey")
-            .algorithm(JWSAlgorithm.RS256)
+            .algorithm(JWSAlgorithm.RS512)
             .generate()
         return rsaKey
     }
