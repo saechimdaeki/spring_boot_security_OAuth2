@@ -2,6 +2,7 @@ package me.saechimdaeki.resource.signature
 
 import com.nimbusds.jose.JWSAlgorithm
 import com.nimbusds.jose.JWSHeader
+import com.nimbusds.jose.JWSSigner
 import com.nimbusds.jose.crypto.MACSigner
 import com.nimbusds.jose.jwk.JWK
 import com.nimbusds.jose.jwk.OctetSequenceKey
@@ -12,8 +13,8 @@ import java.util.Date
 
 abstract class SecuritySigner {
 
-    abstract fun getToken(user: UserDetails, jwk: JWK): String
-    protected fun getJwtTokenInternal(jwtSigner: MACSigner, user: UserDetails, jwk: OctetSequenceKey): String {
+    abstract fun getToken(user: UserDetails, jwk: JWK?): String
+    protected fun getJwtTokenInternal(jwtSigner: JWSSigner, user: UserDetails, jwk: JWK): String {
         val header = JWSHeader.Builder((jwk.algorithm as JWSAlgorithm)).keyID(jwk.keyID).build()
         val jwtClaimsSet = JWTClaimsSet.Builder().subject("user")
             .issuer("http://localhost:8081")

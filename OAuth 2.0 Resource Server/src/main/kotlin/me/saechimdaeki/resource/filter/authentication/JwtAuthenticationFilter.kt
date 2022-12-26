@@ -12,7 +12,7 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
-class JwtAuthenticationFilter(private val securitySigner: SecuritySigner, private val jwk: JWK) :
+class JwtAuthenticationFilter(private val securitySigner: SecuritySigner?, private val jwk: JWK?) :
     UsernamePasswordAuthenticationFilter() {
 
 
@@ -34,7 +34,7 @@ class JwtAuthenticationFilter(private val securitySigner: SecuritySigner, privat
         authResult: Authentication
     ) {
         val user = authResult.principal as User
-        val jwtToken = securitySigner.getToken(user, jwk)
+        val jwtToken = securitySigner?.getToken(user, jwk)
         response.addHeader("Authorization", "Bearer " + jwtToken)
 
     }

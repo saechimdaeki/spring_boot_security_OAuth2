@@ -1,8 +1,12 @@
 package me.saechimdaeki.resource.config
 
+import com.nimbusds.jose.crypto.MACVerifier
+import com.nimbusds.jose.crypto.RSASSAVerifier
 import com.nimbusds.jose.jwk.OctetSequenceKey
+import com.nimbusds.jose.jwk.RSAKey
 import me.saechimdaeki.resource.filter.authentication.JwtAuthenticationFilter
 import me.saechimdaeki.resource.filter.authorization.JwtAuthorizationMacFilter
+import me.saechimdaeki.resource.filter.authorization.JwtAuthorizationRsaFilter
 import me.saechimdaeki.resource.signature.MacSecuritySigner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -24,8 +28,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 class OAuth2ResourceServerConfig(
-    private val macSecuritySigner: MacSecuritySigner,
-    private val octetSequenceKey: OctetSequenceKey,
 ){
 
     @Bean
@@ -43,21 +45,26 @@ class OAuth2ResourceServerConfig(
                 .anyRequest().authenticated()
         }
         http.userDetailsService(userDetailsService())
-        http.addFilterBefore(jwtAuthenticationFilter(macSecuritySigner,octetSequenceKey), UsernamePasswordAuthenticationFilter::class.java)
-        http.addFilterBefore(jwtAuthorizationMacFilter(octetSequenceKey),UsernamePasswordAuthenticationFilter::class.java)
+        http.addFilterBefore(jwtAuthenticationFilter(null,null), UsernamePasswordAuthenticationFilter::class.java)
+        http.addFilterBefore(jwtAuthorizationRsaFilter(null),UsernamePasswordAuthenticationFilter::class.java)
         http.oauth2ResourceServer(OAuth2ResourceServerConfigurer<*>::jwt)
 
 
         return http.build()
     }
 
-    @Bean
+/*    @Bean
     fun jwtAuthorizationMacFilter( octetSequenceKey: OctetSequenceKey): JwtAuthorizationMacFilter {
-        return JwtAuthorizationMacFilter(octetSequenceKey)
+        return JwtAuthorizationMacFilter(MACVerifier(octetSequenceKey.toSecretKey()))
+    }*/
+
+    @Bean
+    fun jwtAuthorizationRsaFilter( rsaKey: RSAKey?): JwtAuthorizationRsaFilter {
+        return JwtAuthorizationRsaFilter(RSASSAVerifier(rsaKey?.toRSAPublicKey()))
     }
 
     @Bean
-    fun jwtAuthenticationFilter(macSecuritySigner: MacSecuritySigner, octetSequenceKey: OctetSequenceKey): JwtAuthenticationFilter {
+    fun jwtAuthenticationFilter(macSecuritySigner: MacSecuritySigner?, octetSequenceKey: OctetSequenceKey?): JwtAuthenticationFilter {
         val jwtAuthenticationFilter = JwtAuthenticationFilter(macSecuritySigner,octetSequenceKey)
         jwtAuthenticationFilter.setAuthenticationManager(authenticationManager(null))
         return jwtAuthenticationFilter
