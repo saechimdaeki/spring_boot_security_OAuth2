@@ -6,6 +6,7 @@ import com.nimbusds.jose.jwk.RSAKey
 import com.nimbusds.jose.jwk.gen.OctetSequenceKeyGenerator
 import com.nimbusds.jose.jwk.gen.RSAKeyGenerator
 import me.saechimdaeki.resource.signature.MacSecuritySigner
+import me.saechimdaeki.resource.signature.RsaPublicKeySecuritySigner
 import me.saechimdaeki.resource.signature.RsaSecuritySigner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -31,10 +32,10 @@ class SignatureConfig {
 
     // ---- 비대칭 키 ----  //
 
-    @Bean
-    fun rsaSecuritySigner() : RsaSecuritySigner {
-        return RsaSecuritySigner()
-    }
+//    @Bean
+//    fun rsaSecuritySigner() : RsaSecuritySigner {
+//        return RsaSecuritySigner()
+//    }
 
     @Bean
     fun rsaKey() : RSAKey {
@@ -43,5 +44,10 @@ class SignatureConfig {
             .algorithm(JWSAlgorithm.RS512)
             .generate()
         return rsaKey
+    }
+
+    @Bean
+    fun rsaSecuritySigner() : RsaPublicKeySecuritySigner {
+        return RsaPublicKeySecuritySigner()
     }
 }

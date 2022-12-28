@@ -224,6 +224,11 @@ public class OAuth2ResourceServerConfig {
 
 
 
+# 검증 아키텍처 이해 - BearerTokenAuthenticationFilter
+
+
+<img width="1107" alt="image" src="https://user-images.githubusercontent.com/40031858/209809544-5880ecd7-f622-4894-9e53-95a1c6d1457e.png">
+
 
 
 

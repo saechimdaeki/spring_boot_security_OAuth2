@@ -6,7 +6,7 @@ import com.nimbusds.jose.jwk.OctetSequenceKey
 import org.springframework.security.core.userdetails.UserDetails
 
 class MacSecuritySigner : SecuritySigner() {
-    override fun getToken(user: UserDetails, jwk: JWK): String {
+    override fun getToken(user: UserDetails, jwk: JWK?): String {
 
         val jwtSigner = MACSigner((jwk as OctetSequenceKey).toSecretKey())
         return super.getJwtTokenInternal(jwtSigner, user , jwk)

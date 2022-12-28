@@ -6,6 +6,9 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jws-algorithms: RSA512
+          jwk-set-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8080/realms/oauth2
+#          public-key-location: classpath:certs
+#          jws-algorithms: RSA512
 #          jws-algorithms: RS256
 #          jws-algorithms: HS256

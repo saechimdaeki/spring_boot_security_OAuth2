@@ -45,8 +45,8 @@ class OAuth2ResourceServerConfig(
                 .anyRequest().authenticated()
         }
         http.userDetailsService(userDetailsService())
-        http.addFilterBefore(jwtAuthenticationFilter(null,null), UsernamePasswordAuthenticationFilter::class.java)
-        http.addFilterBefore(jwtAuthorizationRsaFilter(null),UsernamePasswordAuthenticationFilter::class.java)
+//        http.addFilterBefore(jwtAuthenticationFilter(null,null), UsernamePasswordAuthenticationFilter::class.java)
+//        http.addFilterBefore(jwtAuthorizationRsaFilter(null),UsernamePasswordAuthenticationFilter::class.java)
         http.oauth2ResourceServer(OAuth2ResourceServerConfigurer<*>::jwt)
 
 
