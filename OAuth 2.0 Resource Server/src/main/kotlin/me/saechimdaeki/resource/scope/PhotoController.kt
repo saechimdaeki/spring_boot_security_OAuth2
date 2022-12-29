@@ -17,4 +17,10 @@ class PhotoController {
     fun photo2() : Photo {
         return Photo(photoId = "2", photoTitle = "Photo 2 title", photoDescription = "Photo2 is nice", userId = "user2")
     }
+
+    @GetMapping("/photos/3")
+//    @PreAuthorize("hasAnyAuthority('SCOPE_photo')")
+    fun photo3() : Photo {
+        return Photo(photoId = "3", photoTitle = "Photo 3 title", photoDescription = "Photo3 is nice", userId = "user3")
+    }
 }
