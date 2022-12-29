@@ -231,7 +231,13 @@ public class OAuth2ResourceServerConfig {
 
 
 
+# OAuth 2.0 Resource Server - 리소스 서버 권한 구현
 
+<img width="1067" alt="image" src="https://user-images.githubusercontent.com/40031858/209952039-9ee24148-7cd1-4c11-b745-4b31895d143e.png">
+
+<img width="1129" alt="image" src="https://user-images.githubusercontent.com/40031858/209952066-ae708c35-1c13-4b4a-ac95-1740ba771c16.png">
+
+<img width="1056" alt="image" src="https://user-images.githubusercontent.com/40031858/209952118-81fcc4bc-c184-4332-b40f-3849bb037cca.png">
 
 
 
