@@ -241,7 +241,57 @@ public class OAuth2ResourceServerConfig {
 
 
 
+# Opaque 개념 및 API 설정
+
+## 개념
+
+- Opaque 토큰은 인가 서버에서 호스트하는 OAuth 2.0 Introspection 엔드포인트로 검증한다. 
+- Bearer 토큰이 리소스 서버에서 처리하는 자체 검증이라면 Opaque 토큰은 인가서버에서 처리하는 원격 검증이라고 볼 수 있다
+
+
+## 환경
+- 두 가지 설정만 하면 인가서버와의 Instrospection 검증이 가능하다. 
+
+1. 필요한 의존성을 추가한다
+
+```
+runtimeOnly 'com.nimbusds:oauth2-oidc-sdk:9.35'
+```
+
+2. introspection 엔드포인트 상세 정보를 설정한다 
+
+```yaml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          introspection-uri: http://localhost:8080/realms/oauth2/protocol/openid-connect/introspect
+          client-id: oauth2-client-app
+          client-secret: ${secret}
+
+```
+- http://localhost:8080/realms/oauth2/protocol/openid-connect/introspect 는 인가 서버가 호스트하는 introspect 엔드포인트이다
+- client-id와 client-secret은 엔드포인트 요청에 사용할 클라이언트 자격증명이다
 
 
 
+### 설정 클래스
 
+```java
+@Configuration(proxyBeanMethods= false)
+class Oauth2ResourceServerConfig {
+  
+  @Bean
+  SecurityFilterChain jwtSecurityFilterChain(HttpSecurity http) throws Exception {
+
+    http.authorizeRequests((requests) -> requests.anyRequest().authenticated());
+
+    http.oauth2ResourceServer(OAuth2ResourceServerConfigurer::opaque);
+
+    return http.build();
+  }
+}
+```
+
+<img width="920" alt="image" src="https://user-images.githubusercontent.com/40031858/210023243-f7c4cdf8-54e9-405f-8de1-d8bb333d9b21.png">
