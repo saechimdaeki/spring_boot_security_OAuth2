@@ -295,3 +295,6 @@ class Oauth2ResourceServerConfig {
 ```
 
 <img width="920" alt="image" src="https://user-images.githubusercontent.com/40031858/210023243-f7c4cdf8-54e9-405f-8de1-d8bb333d9b21.png">
+
+<img width="907" alt="image" src="https://user-images.githubusercontent.com/40031858/210024735-2b8bc122-6342-4e78-984f-e13e74986874.png">
+
