@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Insert title here</title>
+  <script>
+    function remotePhotos(){
+      fetch("http://localhost:8082/remotePhotos",{
+        method : "GET",
+        headers : {
+          Authorization : "Bearer "+ localStorage.getItem("access_token")
+        }
+      })
+              .then(response => {
+                response.json().then(function(data){
+                  for(const prop in data) {
+                    document.querySelector("#remotePhotos").append(data[prop].userId);
+                    document.querySelector("#remotePhotos").append(data[prop].photoId);
+                    document.querySelector("#remotePhotos").append(data[prop].photoTitle);
+                    document.querySelector("#remotePhotos").append(data[prop].photoDescription);
+                    document.querySelector("#remotePhotos").append(document.createElement('br'));
+                  }
+                })
+              })
+    }
+
+    function photos(){
+      fetch("/photos?token="+localStorage.getItem("access_token"),
+              {
+                method : "GET",
+                headers : {
+                  "Content-Type": "application/json",
+                },
+              })
+              .then(response => {
+                response.json().then(function(data){
+                  for(const prop in data) {
+                    document.querySelector("#photos").append(data[prop].userId);
+                    document.querySelector("#photos").append(data[prop].photoId);
+                    document.querySelector("#photos").append(data[prop].photoTitle);
+                    document.querySelector("#photos").append(data[prop].photoDescription);
+                    document.querySelector("#photos").append(document.createElement('br'));
+                  }
+                })
+              })
+              .catch((error) => console.log("error:", error));
+    }
+
+  </script>
+</head>
+<body>
+<div>Welcome</div>
+<div sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></div>
+<form action="#">
+  <p><input type="button" onclick="photos()" value="Photos" />
+  <p><input type="button" onclick="remotePhotos()" value="Remote Photos" />
+</form>
+<div id="photos"></div>
+<p></p>
+<div id="remotePhotos"></div>
+</body>
+</html>
