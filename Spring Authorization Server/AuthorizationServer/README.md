@@ -47,3 +47,49 @@
 
 
 <img width="1104" alt="image" src="https://user-images.githubusercontent.com/40031858/210756147-c4bc26cb-3c5a-40ea-894a-e2235dcb3e06.png">
+
+
+----
+
+
+----
+
+
+# Spring Authorization Server - 엔드포인트 프로토콜
+
+
+## OAuth 2.0 AuthorizationServer Endpoint 기능 및 특징
+
+### OAuth2AuthorizationEndpointConfigurer 
+
+- OAuth2 권한 부여 엔드포인트에 대한 사용자 정의 할 수 있는 기능을 제공한다. 
+- OAuth2 권한 부여 요청에 대한 전처리, 기본 처리 및 후처리 로직을 커스텀하게 구현할 수 있도록 API를 지원한다
+- OAuth2AuthorizationEndpointFilter 를 구성하고 이를 OAuth2 인증 서버 SecurityFilterChain 빈에 등록한다
+
+### OAuth2AuthorizationEndpointFilter
+
+- OAuth2 인증 요청(및 동의)을 처리하는 필터이며 다음과 같은 기본값으로 구성된다 
+- OAuth2AuthorizationCodeRequestAuthenticationConverter – 클라이언트 요청 파라미터를 OAuth2AuthorizationCodeRequestAuthenticationToken 으로 변환하고 AuthenticationProvider 에게 전달한다
+- OAuth2AuthorizationCodeRequestAuthenticationProvider 
+  - Authorization Code 권한 부여 방식을 처리하는 OAuth 2.0 인증 요청 및 동의에 대한 AuthenticationProvider 구현체이다
+
+
+### RequestMatcher
+
+- Code 요청 패턴
+  - /oauth2/authorize, GET, /oauth2/authorize, POST
+
+- Consent (동의하기) 요청 패턴
+  - /oauth2/authorize, POST
+
+
+
+## OAuth 2.0 AuthorizationServer Endpoint
+
+<img width="1128" alt="image" src="https://user-images.githubusercontent.com/40031858/210764782-5b7376e5-1b09-4577-bed1-767101bb92c1.png">
+
+<img width="1153" alt="image" src="https://user-images.githubusercontent.com/40031858/210764852-4b9df10f-16e7-4665-9d74-d45eabd7cd33.png">
+
+
+
+

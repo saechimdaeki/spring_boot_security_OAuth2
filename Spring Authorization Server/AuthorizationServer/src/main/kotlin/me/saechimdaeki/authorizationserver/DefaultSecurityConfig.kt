@@ -12,7 +12,7 @@ import org.springframework.security.web.SecurityFilterChain
 class DefaultSecurityConfig {
 
     @Bean
-    fun securityFilterChain(http:HttpSecurity) : SecurityFilterChain {
+    fun defaultsecurityFilterChain(http:HttpSecurity) : SecurityFilterChain {
 
         http.authorizeRequests { req -> req.anyRequest().authenticated() }
         http.formLogin()
