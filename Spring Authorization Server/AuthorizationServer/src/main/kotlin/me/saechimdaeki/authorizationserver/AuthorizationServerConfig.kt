@@ -27,6 +27,7 @@ import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
+import java.time.Instant
 import java.util.*
 
 @Configuration
@@ -50,9 +51,19 @@ class AuthorizationServerConfig {
 
     @Bean
     fun registeredClientRepository(): RegisteredClientRepository {
-        val registeredClient = RegisteredClient.withId(UUID.randomUUID().toString())
-            .clientId("oauth2-client-app")
-            .clientSecret("{noop}secret")
+        val registeredClient1 = getRegisteredClient("oauth2-client-app1", "{noop}secret1", "read", "write")
+        val registeredClient2 = getRegisteredClient("oauth2-client-app2", "{noop}secret2", "read", "delete")
+        val registeredClient3 = getRegisteredClient("oauth2-client-app3", "{noop}secret3", "read", "update")
+
+        return InMemoryRegisteredClientRepository(listOf(registeredClient1, registeredClient2, registeredClient3))
+
+    }
+
+    fun getRegisteredClient(clientId: String, clientSecret: String, scope1: String, scope2: String): RegisteredClient {
+        return RegisteredClient.withId(UUID.randomUUID().toString())
+            .clientId(clientId)
+            .clientSecret(clientSecret)
+            .clientIdIssuedAt(Instant.now())
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
             .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_POST)
             .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
@@ -60,19 +71,12 @@ class AuthorizationServerConfig {
             .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
             .redirectUri("http://127.0.0.1:8081")
             .scope(OidcScopes.OPENID)
-            .scope("read")
-            .scope("write")
+            .scope(scope1)
+            .scope(scope2)
             .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
             .build()
-        return InMemoryRegisteredClientRepository(registeredClient)
-
-
     }
 
-    @Bean
-    fun jwtDecoder(jwkSource: JWKSource<SecurityContext>): JwtDecoder {
-        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource)
-    }
 
     @Bean
     fun jwkSource(): JWKSource<SecurityContext> {
@@ -81,6 +85,11 @@ class AuthorizationServerConfig {
 
         val jwkSet = JWKSet(rsaKey)
         return JWKSource { jwkSelector, _ -> jwkSelector.select(jwkSet) }
+    }
+
+    @Bean
+    fun jwtDecoder(jwkSource: JWKSource<SecurityContext>): JwtDecoder {
+        return OAuth2AuthorizationServerConfiguration.jwtDecoder(jwkSource)
     }
 
     private fun generateRsa(): RSAKey {
