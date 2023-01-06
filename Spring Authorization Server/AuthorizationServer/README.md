@@ -112,3 +112,47 @@
 
 <img width="1140" alt="image" src="https://user-images.githubusercontent.com/40031858/210917072-7fe3ca52-39e3-4a21-9de3-607416dd2e21.png">
 
+---
+
+
+## OAuth 2.0 Token Endpoint
+
+### OAuth2TokenEndpointConfigurer
+- OAuth2 토큰 엔드포인트에 대한 사용자 정의 할 수 있는 기능을 제공한다. 
+- OAuth2 토큰 요청에 대한 전처리, 기본 처리 및 후처리 로직을 커스텀하게 구현할 수 있도록 API를 지원한다
+- OAuth2TokenEndpointFilter 를 구성하고 이를 OAuth2 인증 서버 SecurityFilterChain 빈에 등록한다
+- 지원되는 권한 부여 유형은 authorization_code, refresh_token 및 client_credential 이다
+
+### OAuth2TokenEndpointFilter
+- 클라이언트의 토큰 요청을 처리하는 필터이며 다음과 같은 기본값으로 구성된다 
+- DelegatingAuthenticationConverter – 각 특정 유형의 AuthenticationConverter 를 호출해서 처리를 위임한다
+  - OAuth2AuthorizationCodeAuthenticationConverter – HttpServletRequest 정보를 OAuth2AuthorizationCodeAuthenticationToken 로 변환하여 반환
+  - OAuth2RefreshTokenAuthenticationConverter - HttpServletRequest 정보를 OAuth2RefreshTokenAuthenticationToken 로 변환하여 반환
+- OAuth2ClientCredentialsAuthenticationConverter - HttpServletRequest 정보를 OAuth2ClientCredentialsAuthenticationToken 로 변환하여 반환
+- OAuth2AuthorizationCodeAuthenticationProvider, OAuth2RefreshTokenAuthenticationProvider, OAuth2ClientCredentialsAuthenticationProvider 
+  - 권한 부여 유형에 따라 토큰을 발행하는 AuthenticationProvider 구현체이다
+- AuthenticationSuccessHandler - 인증된 OAuth2AccessTokenAuthenticationToken 을 처리하는 내부 구현체로서 인증토큰을 사용하여 OAuth2AccessTokenResponse 를 반환한다.
+- AuthenticationFailureHandler - OAuth2AuthenticationException 과 관련된 OAuth2Error를 사용하는 내부 구현 인증예외이며 OAuth2Error 응답을 반환한다
+
+### RequestMatcher
+- 토큰 요청 패턴
+  - /oauth2/token, POST
+
+```java
+@Bean
+public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) {
+  Oauth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer<>();
+
+  http.apply(authorizationServerConfigurer);
+
+  authorizationServerConfigurer
+    .tokenEndpoint(tokenEndpoint -> 
+        tokenEndpoint
+          .accessTokenRequestConverter(accessTokenRequestConverter)
+          .authenticationProvider(authenticationProvider)
+          .accessTokenResponseHandler(accessTokenResponseHandler)
+          .errorResponseHandler(errorResponseHandler)    
+    );
+  return http.build();
+}
+```
