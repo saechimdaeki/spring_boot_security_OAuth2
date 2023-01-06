@@ -270,3 +270,61 @@ public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity h
 
 <img width="957" alt="image" src="https://user-images.githubusercontent.com/40031858/211009571-b6dab851-1353-41fb-bee9-936cb851af83.png">
 
+## OAuth 2.0 Token Revocation Endpoint 
+
+### OAuth2TokenRevocationEndpointConfigurer  
+
+- OAuth2 토큰 취소 엔드포인트에 대한 사용자 정의 할 수 있는 기능을 제공한다. 
+- OAuth2 토큰 취소에 대한 전처리, 기본 처리 및 후처리 로직을 커스텀하게 구현할 수 있도록 API를 지원한다
+- OAuth2TokenRevocationEndpointFilter 를 구성하고 이를 OAuth2 인증 서버 SecurityFilterChain 빈에 등록한다
+
+### OAuth2TokenRevocationEndpointFilter 
+
+- OAuth2 토큰 취소를 처리하는 필터이며 다음과 같은 기본값으로 구성된다 
+- DefaultTokenRevocationAuthenticationConverter
+  - OAuth2 토큰 취소를 추출하려고 할 때 사용되는 전처리기로서 OAuth2TokenRevocationAuthenticationToken 을 반환한다
+- OAuth2TokenRevocationAuthenticationProvider 
+  - OAuth2TokenRevocationAuthenticationToken 을 전달받아 인증처리를 하는 AuthenticationProvider 구현체이다.
+
+### RequestMatcher
+- 토큰 취소 요청 패턴
+  - /oauth2/revoke, POST
+
+<img width="963" alt="image" src="https://user-images.githubusercontent.com/40031858/211021278-ac0e360c-202e-452f-89e3-b83458d2b23f.png">
+
+
+## OAuth 2.0 Authorization Server Metadata Endpoint / JWK Set Endpoint 
+
+<img width="882" alt="image" src="https://user-images.githubusercontent.com/40031858/211021367-98018424-7639-4626-a107-2615b2cb8d45.png">
+
+<img width="984" alt="image" src="https://user-images.githubusercontent.com/40031858/211021409-f565815d-ca68-43f3-a292-d9812ac8c448.png">
+
+<img width="675" alt="image" src="https://user-images.githubusercontent.com/40031858/211021442-ca1519c6-1128-4c37-a7dd-e83cec50ea7b.png">
+
+
+## OpenID Connect 1.0  Endpoint
+
+### OpenID Connect 1.0 Provider Configuration Endpoint  
+
+- OidcConfigurer 는 OpenID Connect 1.0 Provider Configuration 엔드포인트 대한 지원을 제공한다. 
+- OidcConfigurer 는 OidcProviderConfigurationEndpointFilter 를 구성하고 이를 OAuth2 인증 서버 SecurityFilterChain 빈에 등록한다
+- OidcProviderConfigurationEndpointFilter 는 OidcProviderConfiguration 응답을 처리한다
+
+### OpenID Connect 1.0 UserInfo Endpoint
+
+- OidcUserInfoEndpointConfigurer 는 OpenID Connect 1.0 UserInfo 엔드포인트 사용자 정의하는 기능을 제공한다
+- OidcUserInfoEndpointFilter를 구성하고 OAuth2 인증 서버 SecurityFilterChain 빈에 등록한다
+
+### OidcUserInfoEndpointFilter 
+
+- UserInfo 요청을 처리하고 OidcUserInfo 응답을 반환하는 필터이며 다음과 같은 기본값으로 구성된다 
+- OidcUserInfoAuthenticationProvider 
+  - 요청된 scope 를 기준으로 ID 토큰에서 표준 클레임을 추출하는 userInfoMapper 을 가지고 있다
+### RequestMatcher
+- 토큰 검사 요청 패턴
+  - /userinfo, POST 
+  - /userinfo, GET
+
+
+
+
