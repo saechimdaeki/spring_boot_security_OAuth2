@@ -235,4 +235,38 @@ public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity h
   - unauthorized_client - 이 클라이언트는 요청된 권한 부여 유형을 사용할 권한이 없음(RegisteredClient 에 정의하지 않은 권한 부여 유형을 요청한 경우)
   - unsupported_grant_type - 권한 부여 서버가 인식하지 못하는 승인 유형을 요청하는 경우 이 코드를 사용함
 
- 
+ ## Client Credentials
+
+ <img width="1145" alt="image" src="https://user-images.githubusercontent.com/40031858/211004969-daae40df-c85f-49f0-ad15-72443d8acceb.png">
+
+## Refresh Token
+
+<img width="1125" alt="image" src="https://user-images.githubusercontent.com/40031858/211008496-3e825c1e-2849-422a-8133-dc5bdd175112.png">
+
+## Authorization Code with PKCE
+
+<img width="1121" alt="image" src="https://user-images.githubusercontent.com/40031858/211008880-12bcfd42-3366-4cf9-a19c-b362a27fb2d7.png">
+
+<img width="1156" alt="image" src="https://user-images.githubusercontent.com/40031858/211008916-f9178755-4d6d-42ed-bc16-2fa81f2a5d39.png">
+
+<img width="1136" alt="image" src="https://user-images.githubusercontent.com/40031858/211008988-72d6e8f3-7693-4219-b781-c58794b422ab.png">
+
+
+## OAuth 2.0 Token Introspection Endpoint
+
+
+### OAuth2TokenIntrospectionEndpointConfigurer
+- OAuth2 토큰 검사 엔드포인트에 대한 사용자 정의 할 수 있는 기능을 제공한다. 
+- OAuth2 검사 요청에 대한 전처리, 기본 처리 및 후처리 로직을 커스텀하게 구현할 수 있도록 API를 지원한다
+- OAuth2TokenIntrospectionEndpointFilter 를 구성하고 이를 OAuth2 인증 서버 SecurityFilterChain 빈에 등록한다
+
+### OAuth2TokenIntrospectionEndpointFilter 
+- OAuth2 검사 요청을 처리하는 필터이며 다음과 같은 기본값으로 구성된다 
+- IntrospectionRequestConverter
+  - OAuth2 검사 요청을 추출하려고 할 때 사용되는 전처리기로서 OAuth2TokenIntrospectionAuthenticationToken 을 반환한다
+- OAuth2TokenIntrospectionAuthenticationProvider 
+  - OAuth2TokenIntrospectionAuthenticationToken 를 받아 인증 처리를 하는 AuthenticationProvider 구현체이다
+
+
+<img width="957" alt="image" src="https://user-images.githubusercontent.com/40031858/211009571-b6dab851-1353-41fb-bee9-936cb851af83.png">
+

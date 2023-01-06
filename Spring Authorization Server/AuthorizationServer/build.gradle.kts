@@ -19,9 +19,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.security:spring-security-oauth2-authorization-server:0.3.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    implementation("org.projectlombok:lombok:1.18.22")
+    runtimeOnly("com.nimbusds:oauth2-oidc-sdk:9.35")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
