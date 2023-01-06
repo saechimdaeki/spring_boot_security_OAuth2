@@ -91,5 +91,24 @@
 <img width="1153" alt="image" src="https://user-images.githubusercontent.com/40031858/210764852-4b9df10f-16e7-4665-9d74-d45eabd7cd33.png">
 
 
+### OAuth2AuthorizationConsent
 
+- OAuth2AuthorizationConsent 는 OAuth2 권한 부여 요청 흐름의 권한부여  "동의“ (결정)를 나타낸다. 
+- 클라이언트에 대한 액세스를 승인할 때 리소스 소유자는 클라이언트가 요청한 권한의 하위 집합만 허용할 수 있습니다. 
+- 클라이언트가 범위를 요청하고 리소스 소유자가 요청된 범위에 대한 액세스를 허용하거나 거부하는 authorization_code grant 흐름이다
+- OAuth2 인증 요청 흐름이 완료되면 OAuth2 Authorization Consent가 생성(또는 업데이트)되고 부여된 권한을 클라이언트 및 리소스 소유자와 연결한다
+
+<img width="927" alt="image" src="https://user-images.githubusercontent.com/40031858/210916879-b9145d73-3125-43bb-abcf-df94bfe9e4e9.png">
+
+
+### OAuth2AuthorizationConsentService
+
+- OAuth2AuthorizationConsent 저장되고 기존 OAuth2AuthorizationConsent 를 조회하는 클래스로 주로 OAuth2 권한 부여 요청 흐름을 구현하는 구성 요소에 의해 사용된다
+- 기본 구현체는 InMemoryOAuth2AuthorizationConsentService 와 JdbcOAuth2AuthorizationConsentService 가 있다
+
+<img width="433" alt="image" src="https://user-images.githubusercontent.com/40031858/210916969-d42914a2-bcb7-4cc0-939e-c3a7995e38c8.png">
+
+<img width="1143" alt="image" src="https://user-images.githubusercontent.com/40031858/210917045-d725371b-c6cc-4172-8c6a-7bbd931877af.png">
+
+<img width="1140" alt="image" src="https://user-images.githubusercontent.com/40031858/210917072-7fe3ca52-39e3-4a21-9de3-607416dd2e21.png">
 
