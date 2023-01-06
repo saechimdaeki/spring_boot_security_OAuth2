@@ -7,8 +7,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.authorization.OAuth2AuthorizationServerConfigurer
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeRequestAuthenticationToken
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.authentication.AuthenticationFailureHandler
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint
 import org.springframework.util.StringUtils
 import javax.servlet.http.HttpServletResponse
@@ -30,10 +28,10 @@ class AuthorizationServerConfig(
         authenticationConfigurer.authorizationEndpoint { authorizationEndpoint ->
             authorizationEndpoint
                 .authenticationProvider(customAuthenticationProvider)
-                .authorizationResponseHandler { request, response, authentication ->
+                .authorizationResponseHandler { _, response, authentication ->
                     val authentication1 =
                         authentication as OAuth2AuthorizationCodeRequestAuthenticationToken
-                    System.out.println(authentication)
+                    println(authentication)
                     val redirectUri = authentication1.redirectUri
                     val authorizationCode = authentication1.authorizationCode!!.tokenValue
                     var state: String? = null
@@ -42,10 +40,10 @@ class AuthorizationServerConfig(
                     }
                     response.sendRedirect("$redirectUri?code=$authorizationCode&state=$state")
                 }
-                .errorResponseHandler({ request, response, exception ->
+                .errorResponseHandler { _, response, exception ->
                     println(exception.toString())
                     response.sendError(HttpServletResponse.SC_BAD_REQUEST)
-                })
+                }
         }
 
 

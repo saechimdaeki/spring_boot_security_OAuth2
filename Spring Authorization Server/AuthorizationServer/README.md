@@ -156,3 +156,83 @@ public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity h
   return http.build();
 }
 ```
+
+
+---
+
+# OAuth 2.0 Token Endpoint
+
+## 클라이언트 인증하기
+
+### OAuth2ClientAuthenticationConfigurer 
+
+- OAuth2 클라이언트 인증을 위한 사용자 정의하는 기능을 제공한다. 
+- 클라이언트 인증 요청에 대한 전처리, 기본 처리 및 후처리 로직을 커스텀하게 구현할 수 있도록 API를 지원한다
+- OAuth2ClientAuthenticationFilter 를 구성하고 이를 OAuth2 인증 서버 SecurityFilterChain 빈에 등록한다
+- 지원되는 클라이언트 인증 방법은 client_secret_basic, client_secret_post, private_key_jwt, client_secret_jwt및 none(공개 클라이언트) 이다
+
+### OAuth2ClientAuthenticationFilter
+- 클라이언트 인증 요청을 처리하는 필터이며 다음과 같은 기본값으로 구성된다 
+- DelegatingAuthenticationConverter
+  - ClientSecretBasicAuthenticationConverter – 클라이언트 요청 방식이 HTTP Basic 일 경우 처리
+  - ClientSecretPostAuthenticationConverter – 클라이언트 요청 방식이 POST 일 경우 처리
+  - JwtClientAssertionAuthenticationConverter - 클라이언트 요청 방식이 JWT 토큰일 경우 처리
+  - PublicClientAuthenticationConverter - 클라이언트 요청 방식이 PKCE 일 경우 처리
+- DelegatingAuthenticationProvider
+  - ClientSecretAuthenticationProvider, JwtClientAssertionAuthenticationProvider, PublicClientAuthenticationProvider 
+  - 권한 부여 유형에 따라 토큰을 발행하는 AuthenticationProvider 구현체이다
+- AuthenticationSuccessHandler - 인증된 OAuth2ClientAuthenticationToken  에 SecurityContext 를 연결하는 내부 구현체
+- AuthenticationFailureHandler – 연결된 OAuth2AuthenticationException 를 사용하여 OAuth2 오류 응답을 반환하는 내부 구현체
+
+### RequestMatcher
+- 토큰 요청 패턴
+  - POST /oauth2/token, POST /oauth2/introspect, POST /oauth2/revoke
+
+
+<img width="1126" alt="image" src="https://user-images.githubusercontent.com/40031858/210937712-b57e2efd-1a5b-4266-a79c-997e23381b98.png">
+
+
+```java
+@Bean
+public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http) {
+  Oauth2AuthorizationServerConfigurer<HttpSecurity> authorizationServerConfigurer = new OAuth2AuthorizationServerConfigurer<>();
+
+  authorizationServerConfigurer
+    .clientAuthentication(clientAuthentication -> 
+      clientAuthentication.autrhenticationConverter(authenticationConverter)
+      .authenticationProvider(authenticationProvider)
+      .authenticationSuccessHandler(authenticationSuccessHandler)
+      .errorResponseHandler(errorResponseHandler)
+    );
+
+  return http.build();
+}
+```
+
+## Authorization Code
+
+<img width="1152" alt="image" src="https://user-images.githubusercontent.com/40031858/210939301-66723056-2361-40ea-801b-dda9061ec5cd.png">
+
+
+### Access Token Response
+
+- Successful Response
+  - access_token(필수) - 권한 부여 서버에서 발급한 액세스 토큰 문자열
+  - token_type(필수) - 토큰 유형은 일반적으로 "Bearer" 문자열
+  - expires_in(권장) – 토큰의 만료시간
+  - refresh_token(선택 사항) - 액세스 토큰이 만료되면 응용 프로그램이 다른 액세스 토큰을 얻는 데 사용할 수 있는   Refresh 토큰을 반환하는 것이 유용하다. 
+       
+       단, implicit 권한 부여로 발행된 토큰은 새로고침 토큰을 발행할 수 없다.
+  - scope(선택사항) - 사용자가 부여한 범위가 앱이 요청한 범위와 동일한 경우 이 매개변수는 선택사항. 
+
+- Unsuccessful Response
+  - invalid_request - 요청에 매개변수가 누락, 지원되지 않는 매개변수, 매개변수 반복되는 경우 서버가 요청을 진행할 수 없음
+  - invalid_client - 요청에 잘못된 클라이언트 ID 또는 암호가 포함된 경우 클라이언트 인증에 실패, HTTP 401 응답
+  - invalid_grant - 인증 코드가 유효하지 않거나 만료됨
+
+    권한 부여에 제공된 리디렉션 URL이 액세스 토큰 요청에 제공된 URL과 일치하지 않는 경우 반환하는 오류
+  - invalid_scope - 범위를 포함하는 액세스 토큰 요청의 경우 이 오류는 요청의 유효하지 않은 범위 값을 나타냄
+  - unauthorized_client - 이 클라이언트는 요청된 권한 부여 유형을 사용할 권한이 없음(RegisteredClient 에 정의하지 않은 권한 부여 유형을 요청한 경우)
+  - unsupported_grant_type - 권한 부여 서버가 인식하지 못하는 승인 유형을 요청하는 경우 이 코드를 사용함
+
+ 
